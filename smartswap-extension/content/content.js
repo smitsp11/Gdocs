@@ -30,6 +30,27 @@
 
     SmartSwapUtils.log('✅ SmartSwap initialized and ready');
 
+    // Phase 2: Initialize advanced features
+    if (SMARTSWAP_CONSTANTS.FEATURES.VISUAL_FEEDBACK && window.VisualFeedback) {
+        VisualFeedback.init();
+        SmartSwapUtils.log('Visual feedback initialized');
+    }
+
+    if (SMARTSWAP_CONSTANTS.FEATURES.QUICK_SWAP && window.QuickSwap) {
+        QuickSwap.init();
+        SmartSwapUtils.log('Quick swap initialized');
+    }
+
+    if (SMARTSWAP_CONSTANTS.FEATURES.DRAG_SWAP && window.DragSwapMode) {
+        DragSwapMode.init();
+        SmartSwapUtils.log('Drag swap mode initialized');
+    }
+
+    if (SMARTSWAP_CONSTANTS.FEATURES.HISTORY_BUFFER && window.ClipboardHistory) {
+        await ClipboardHistory.init();
+        SmartSwapUtils.log('Clipboard history initialized');
+    }
+
     // Track paste events
     let pasteEventInProgress = false;
 
@@ -113,6 +134,7 @@
     /**
      * Handle keyboard events
      * We listen for Ctrl/Cmd+V to detect paste operations
+     * And Alt+X for quick swap (Phase 2)
      */
     function handleKeyDown(event) {
         // Check for paste shortcut (Ctrl/Cmd + V)
@@ -123,6 +145,34 @@
             SmartSwapUtils.log('Paste shortcut detected');
             // The actual paste event will fire separately
             // We just log this for debugging
+        }
+
+        // Phase 2: Check for quick swap hotkey (Alt + X)
+        if (SMARTSWAP_CONSTANTS.FEATURES.QUICK_SWAP &&
+            event.altKey &&
+            event.key.toLowerCase() === SMARTSWAP_CONSTANTS.HOTKEYS.QUICK_SWAP.toLowerCase()) {
+
+            event.preventDefault();
+            SmartSwapUtils.log('Quick swap hotkey detected (Alt+X)');
+
+            if (window.QuickSwap) {
+                QuickSwap.handleQuickSwap();
+            }
+        }
+
+        // Phase 2: Toggle drag swap mode with Ctrl+Shift+D
+        if (SMARTSWAP_CONSTANTS.FEATURES.DRAG_SWAP &&
+            event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'd') {
+
+            event.preventDefault();
+            SmartSwapUtils.log('Drag swap toggle hotkey detected (Ctrl+Shift+D)');
+
+            if (window.DragSwapMode) {
+                const isActive = DragSwapMode.toggle();
+                if (window.VisualFeedback) {
+                    VisualFeedback.show(isActive ? 'Drag Swap Mode: ON' : 'Drag Swap Mode: OFF', 2000);
+                }
+            }
         }
     }
 

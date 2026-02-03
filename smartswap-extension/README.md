@@ -15,11 +15,18 @@ This reduces a 6-step swap process to just 2 steps!
 
 ## ✨ Features
 
+### Phase 1 - Core Features
 - **Non-destructive Paste**: Never lose text when pasting over a selection
 - **Seamless Integration**: Works naturally within Google Docs
 - **Performance Optimized**: <100ms latency for instant feel
 - **Privacy Focused**: No data collection, clipboard data never leaves your browser
 - **Simple Toggle**: Easy on/off control via popup
+
+### Phase 2 - Advanced Features ✨ NEW
+- **Visual Feedback Widget**: See what text was swapped in a beautiful floating notification
+- **Quick Swap (Alt+X)**: Instantly swap adjacent words at cursor position
+- **Drag-and-Swap Mode (Ctrl+Shift+D)**: Drag text selections to swap them
+- **Clipboard History**: Tracks your last 3 swapped items
 
 ## 🚀 Installation
 
@@ -52,6 +59,33 @@ Swap two sentences:
 ### Data Entry
 Quickly swap values in tables or lists without losing data.
 
+## ⌨️ Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd + V` | Exchange Paste (when text is selected) |
+| `Alt + X` | Quick Swap - Swap adjacent words at cursor |
+| `Ctrl + Shift + D` | Toggle Drag-and-Swap Mode |
+
+## 🎨 Phase 2 Features
+
+### Visual Feedback Widget
+Whenever you perform an exchange paste, a beautiful notification appears in the bottom-right showing what text was swapped to your clipboard.
+
+### Quick Swap (Alt+X)
+Place your cursor between two words and press `Alt+X` to swap them instantly:
+- `word1 | word2` → Press Alt+X → `word2 | word1`
+- Perfect for quick variable swaps or reordering
+
+### Drag-and-Swap Mode
+1. Press `Ctrl+Shift+D` to enable Drag-and-Swap Mode
+2. A purple indicator appears showing the mode is active
+3. Drag one text selection onto another to swap them
+4. Press `Ctrl+Shift+D` again to disable
+
+### Clipboard History
+The extension automatically tracks your last 3 swapped items. This history persists across sessions and helps you keep track of recent swaps.
+
 ## 🏗️ Project Structure
 
 ```
@@ -61,7 +95,11 @@ smartswap-extension/
 ├── content/
 │   ├── content.js        # Main content script
 │   ├── selection-handler.js  # Google Docs selection detection
-│   └── clipboard-manager.js  # Clipboard operations
+│   ├── clipboard-manager.js  # Clipboard operations
+│   ├── visual-feedback.js    # Phase 2: Visual notification widget
+│   ├── quick-swap.js         # Phase 2: Alt+X quick swap
+│   ├── drag-swap.js          # Phase 2: Drag-and-swap mode
+│   └── clipboard-history.js  # Phase 2: History tracking
 ├── popup/
 │   ├── popup.html        # Extension popup UI
 │   ├── popup.js          # Popup logic
@@ -124,16 +162,22 @@ Open Chrome DevTools Console to see performance logs:
 
 ## 🗺️ Roadmap
 
-### Phase 1 (Current - MVP)
+### Phase 1 ✅ COMPLETE
 - ✅ Exchange Paste functionality
 - ✅ Basic popup UI
 - ✅ Enable/disable toggle
 
-### Phase 2 (Future)
-- 🔲 Visual feedback widget showing swapped text
-- 🔲 Clipboard history buffer
-- 🔲 Drag-and-swap mode
-- 🔲 Quick swap hotkey (Alt+X for adjacent words)
+### Phase 2 ✅ COMPLETE
+- ✅ Visual feedback widget showing swapped text
+- ✅ Clipboard history buffer
+- ✅ Drag-and-swap mode
+- ✅ Quick swap hotkey (Alt+X for adjacent words)
+
+### Future Enhancements
+- 🔲 Customizable hotkeys
+- 🔲 Visual history panel in popup
+- 🔲 Multi-cursor support
+- 🔲 Undo/redo integration
 
 ## 🐛 Troubleshooting
 

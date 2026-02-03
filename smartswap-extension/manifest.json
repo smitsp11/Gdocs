@@ -17,12 +17,18 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://docs.google.com/document/*"],
+      "matches": [
+        "https://docs.google.com/document/*"
+      ],
       "js": [
         "utils/constants.js",
         "utils/utils.js",
         "content/selection-handler.js",
         "content/clipboard-manager.js",
+        "content/visual-feedback.js",
+        "content/quick-swap.js",
+        "content/drag-swap.js",
+        "content/clipboard-history.js",
         "content/content.js"
       ],
       "run_at": "document_idle"

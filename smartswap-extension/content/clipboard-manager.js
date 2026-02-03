@@ -108,6 +108,16 @@ const ClipboardManager = {
                     if (success) {
                         SmartSwapUtils.log('✅ Exchange paste complete - clipboard now contains:', displacedText.substring(0, 50) + (displacedText.length > 50 ? '...' : ''));
 
+                        // Phase 2: Show visual feedback
+                        if (SMARTSWAP_CONSTANTS.FEATURES.VISUAL_FEEDBACK && window.VisualFeedback) {
+                            VisualFeedback.show(displacedText);
+                        }
+
+                        // Phase 2: Add to clipboard history
+                        if (SMARTSWAP_CONSTANTS.FEATURES.HISTORY_BUFFER && window.ClipboardHistory) {
+                            await ClipboardHistory.addItem(displacedText);
+                        }
+
                         // Dispatch custom event for tracking
                         window.dispatchEvent(new CustomEvent(SMARTSWAP_CONSTANTS.EVENTS.EXCHANGE_PASTE_COMPLETE, {
                             detail: { displacedText }
