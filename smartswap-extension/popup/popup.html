@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartSwap</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <div class="header">
+      <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17 14L12 9L7 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1>SmartSwap</h1>
+    </div>
+    
+    <div class="status-section">
+      <div class="status-indicator">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Checking...</span>
+      </div>
+    </div>
+    
+    <div class="toggle-section">
+      <div class="toggle-row">
+        <span class="toggle-label">Enable SmartSwap</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="enableToggle">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="info-section">
+      <h3>How it works</h3>
+      <ol>
+        <li>Select text you want to replace</li>
+        <li>Paste (Ctrl/Cmd+V) new text</li>
+        <li>The replaced text is automatically copied to clipboard</li>
+        <li>Paste again to complete the swap!</li>
+      </ol>
+    </div>
+    
+    <div class="footer">
+      <p class="version">v1.0.0</p>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
