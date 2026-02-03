@@ -1,12 +1,77 @@
 // Main Content Script for SmartSwap
 // This script coordinates the exchange paste functionality
 
+// IMMEDIATELY register event listeners in capture phase BEFORE Google Docs can
+// This must happen at the very top, before any async operations
+console.log("SmartSwap: Injecting early capture listeners...");
+
+// Global state
+let smartSwapInitialized = false;
+let smartSwapEnabled = true;
+let pasteEventInProgress = false;
+
+/**
+ * Early paste handler - runs before Google Docs can intercept
+ */
+function earlyPasteHandler(event) {
+    console.log("SmartSwap: 🔍 PASTE EVENT CAPTURED!", event);
+
+    if (!smartSwapInitialized || !smartSwapEnabled) {
+        console.log("SmartSwap: Not ready yet or disabled, allowing normal paste");
+        return;
+    }
+
+    // Forward to main handler
+    if (typeof handlePaste === 'function') {
+        handlePaste(event);
+    }
+}
+
+/**
+ * Early keydown handler - runs before Google Docs can intercept
+ */
+function earlyKeydownHandler(event) {
+    const isCmdOrCtrl = event.metaKey || event.ctrlKey;
+
+    if (isCmdOrCtrl && (event.key === 'v' || event.key === 'V')) {
+        console.log("SmartSwap: ⌨️ Cmd/Ctrl+V DETECTED!");
+    }
+
+    // Forward to main handler if initialized
+    if (smartSwapInitialized && typeof handleKeyDown === 'function') {
+        handleKeyDown(event);
+    }
+}
+
+// Register listeners IMMEDIATELY in capture phase
+document.addEventListener('paste', earlyPasteHandler, { capture: true });
+document.addEventListener('keydown', earlyKeydownHandler, { capture: true });
+
+// Also try on window
+window.addEventListener('paste', earlyPasteHandler, { capture: true });
+window.addEventListener('keydown', earlyKeydownHandler, { capture: true });
+
+console.log("SmartSwap: Early listeners registered (capture phase)");
+
+// Now the main initialization (async)
 (async function () {
     'use strict';
 
-    SmartSwapUtils.log('SmartSwap content script loaded');
+    // Wait for DOM to be ready if we're at document_start
+    if (document.readyState === 'loading') {
+        await new Promise(resolve => {
+            document.addEventListener('DOMContentLoaded', resolve);
+        });
+    }
+
+    console.log('[SmartSwap] SmartSwap content script loaded');
 
     // Check if we're on a Google Docs page
+    if (typeof SmartSwapUtils === 'undefined') {
+        console.error('[SmartSwap] SmartSwapUtils not loaded!');
+        return;
+    }
+
     if (!SmartSwapUtils.isGoogleDocsPage()) {
         SmartSwapUtils.log('Not a Google Docs page, exiting');
         return;
@@ -23,6 +88,7 @@
 
     // Check if extension is enabled
     const enabled = await SmartSwapUtils.isEnabled();
+    smartSwapEnabled = enabled;
     if (!enabled) {
         SmartSwapUtils.log('SmartSwap is disabled');
         return;
@@ -51,14 +117,11 @@
         SmartSwapUtils.log('Clipboard history initialized');
     }
 
-    // Track paste events
-    let pasteEventInProgress = false;
-
     /**
      * Handle paste events
      * This is where the magic happens - we intercept paste when text is selected
      */
-    async function handlePaste(event) {
+    window.handlePaste = async function (event) {
         try {
             // Prevent multiple simultaneous paste operations
             if (pasteEventInProgress) {
@@ -129,20 +192,25 @@
                 detail: { error: error.message }
             }));
         }
-    }
+    };
 
     /**
      * Handle keyboard events
      * We listen for Ctrl/Cmd+V to detect paste operations
      * And Alt+X for quick swap (Phase 2)
      */
-    function handleKeyDown(event) {
+    window.handleKeyDown = function (event) {
+        // Log all keyboard events for debugging
+        if ((event.ctrlKey || event.metaKey) && event.key) {
+            SmartSwapUtils.log(`⌨️ Keyboard: ${event.metaKey ? 'Cmd' : 'Ctrl'}+${event.key}`);
+        }
+
         // Check for paste shortcut (Ctrl/Cmd + V)
         const isPasteShortcut = (event.ctrlKey || event.metaKey) &&
             SMARTSWAP_CONSTANTS.HOTKEYS.PASTE.includes(event.key);
 
         if (isPasteShortcut) {
-            SmartSwapUtils.log('Paste shortcut detected');
+            SmartSwapUtils.log('✂️ PASTE SHORTCUT DETECTED (Cmd/Ctrl+V)');
             // The actual paste event will fire separately
             // We just log this for debugging
         }
@@ -174,32 +242,12 @@
                 }
             }
         }
-    }
+    };
 
-    /**
-     * Set up event listeners
-     */
-    function setupEventListeners() {
-        // Listen for paste events on the document
-        document.addEventListener('paste', handlePaste, true);
+    // Mark as initialized
+    smartSwapInitialized = true;
 
-        // Listen for keyboard events for debugging
-        document.addEventListener('keydown', handleKeyDown, true);
-
-        SmartSwapUtils.log('Event listeners attached');
-    }
-
-    /**
-     * Clean up event listeners
-     */
-    function cleanup() {
-        document.removeEventListener('paste', handlePaste, true);
-        document.removeEventListener('keydown', handleKeyDown, true);
-        SmartSwapUtils.log('Event listeners removed');
-    }
-
-    // Set up event listeners
-    setupEventListeners();
+    SmartSwapUtils.log('Event listeners attached');
 
     // Listen for messages from background script or popup
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -207,12 +255,13 @@
 
         if (message.action === 'getStatus') {
             sendResponse({
-                enabled: true,
-                initialized: true,
+                enabled: smartSwapEnabled,
+                initialized: smartSwapInitialized,
                 hasSelection: SelectionHandler.hasSelection(),
                 inEditor: SelectionHandler.isInEditor()
             });
         } else if (message.action === 'toggleEnabled') {
+            smartSwapEnabled = message.enabled;
             SmartSwapUtils.log('Toggle enabled:', message.enabled);
             sendResponse({ success: true });
         }
@@ -221,7 +270,11 @@
     });
 
     // Clean up on page unload
-    window.addEventListener('beforeunload', cleanup);
+    window.addEventListener('beforeunload', () => {
+        document.removeEventListener('paste', earlyPasteHandler, { capture: true });
+        document.removeEventListener('keydown', earlyKeydownHandler, { capture: true });
+        SmartSwapUtils.log('Event listeners removed');
+    });
 
     SmartSwapUtils.log('🚀 SmartSwap is active and monitoring for paste events');
 
