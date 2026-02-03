@@ -186,6 +186,17 @@ input:checked + .toggle-slider:before {
   margin-bottom: 0;
 }
 
+.info-section .tip {
+  font-size: 12px;
+  color: #495057;
+  margin-top: 12px;
+  padding: 10px;
+  background: #e7f3ff;
+  border-radius: 8px;
+  border-left: 3px solid #667eea;
+  line-height: 1.4;
+}
+
 .footer {
   padding: 12px 20px;
   background: white;

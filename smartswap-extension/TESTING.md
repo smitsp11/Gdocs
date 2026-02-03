@@ -27,6 +27,13 @@
 - Find "SmartSwap for Google Docs"
 - Click the pin icon to keep it visible
 
+### 3. Enable Screen Reader for Google Docs (Required)
+
+Google Docs uses canvas rendering. Enable screen reader mode so SmartSwap can detect your selection:
+
+- In Google Docs: **Tools** → **Accessibility settings** → Turn on "Screen reader support"
+- Or press **Cmd+Option+Z** (Mac) / **Ctrl+Alt+Z** (Windows)
+
 ---
 
 ## 🧪 Testing Scenarios

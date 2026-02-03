@@ -278,4 +278,18 @@ console.log("SmartSwap: Early listeners registered (capture phase)");
 
     SmartSwapUtils.log('🚀 SmartSwap is active and monitoring for paste events');
 
+    // Debug exports for DevTools console (content script runs in isolated context)
+    if (typeof window !== 'undefined') {
+        window.__ss = {
+            selection: SelectionHandler,
+            clipboard: ClipboardManager,
+            history: typeof ClipboardHistory !== 'undefined' ? ClipboardHistory : null,
+            visual: typeof VisualFeedback !== 'undefined' ? VisualFeedback : null,
+            constants: SMARTSWAP_CONSTANTS,
+            hasSelection: () => SelectionHandler.hasSelection(),
+            getSelectedText: () => SelectionHandler.getSelectedText(),
+            metadata: () => SelectionHandler.getSelectionMetadata()
+        };
+    }
+
 })();
