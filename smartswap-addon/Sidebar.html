@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .logo {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        h1 {
+            font-size: 18px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .section {
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .clipboard-area {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            background: rgba(15, 15, 26, 0.8);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 6px;
+            color: #e2e8f0;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 13px;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(99, 102, 241, 0.1);
+            color: #818cf8;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .captured-section {
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .captured-text {
+            background: rgba(15, 15, 26, 0.8);
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 13px;
+            color: #22c55e;
+            min-height: 40px;
+            word-break: break-word;
+            margin-bottom: 8px;
+        }
+
+        .captured-empty {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .history-section {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: rgba(99, 102, 241, 0.08);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .history-title {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #64748b;
+        }
+
+        .clear-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 2px 6px;
+        }
+
+        .clear-btn:hover {
+            color: #ef4444;
+        }
+
+        .history-list {
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .history-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-item-text {
+            font-size: 12px;
+            color: #e2e8f0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .history-empty {
+            padding: 16px 12px;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .status {
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            padding: 8px;
+            margin-top: 8px;
+        }
+
+        .status.success {
+            color: #22c55e;
+        }
+
+        .status.error {
+            color: #ef4444;
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">↔️</div>
+        <h1>SmartSwap</h1>
+        <p class="tagline">Smart clipboard for Google Docs</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Your Clipboard</div>
+        <div class="clipboard-area">
+            <textarea id="clipboardText" placeholder="Paste or type text here..."></textarea>
+            <button class="btn btn-secondary" onclick="copySelection()">
+                📋 Copy Selection to Here
+            </button>
+            <button class="btn btn-primary" onclick="doExchangePaste()">
+                ↔️ Exchange Paste
+            </button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Captured Text (Second Clipboard)</div>
+        <div class="captured-section">
+            <div id="capturedText" class="captured-text captured-empty">
+                Nothing captured yet
+            </div>
+            <button class="btn btn-secondary" onclick="copyToRealClipboard()">
+                📋 Copy to System Clipboard
+            </button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="history-section">
+            <div class="history-header">
+                <span class="history-title">History</span>
+                <button class="clear-btn" onclick="clearHistory()" title="Clear history">×</button>
+            </div>
+            <div id="historyList" class="history-list">
+                <div class="history-empty">No history yet</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <script>
+        let currentCaptured = '';
+
+        // Load history on startup
+        document.addEventListener('DOMContentLoaded', function () {
+            loadHistory();
+        });
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status ' + (type || '');
+            setTimeout(() => { status.textContent = ''; }, 3000);
+        }
+
+        function setLoading(loading) {
+            document.body.classList.toggle('loading', loading);
+        }
+
+        function copySelection() {
+            setLoading(true);
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    setLoading(false);
+                    if (result.success && result.hasSelection) {
+                        document.getElementById('clipboardText').value = result.text;
+                        showStatus('Selection copied!', 'success');
+                    } else {
+                        showStatus(result.error || 'No text selected', 'error');
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    showStatus('Error: ' + error.message, 'error');
+                })
+                .getSelectedText();
+        }
+
+        function doExchangePaste() {
+            const newText = document.getElementById('clipboardText').value.trim();
+
+            if (!newText) {
+                showStatus('Enter text to paste first', 'error');
+                return;
+            }
+
+            setLoading(true);
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    setLoading(false);
+                    if (result.success) {
+                        currentCaptured = result.capturedText;
+                        document.getElementById('capturedText').textContent = result.capturedText;
+                        document.getElementById('capturedText').classList.remove('captured-empty');
+                        showStatus('Exchange complete!', 'success');
+
+                        // Add to history
+                        google.script.run.addToHistory(result.capturedText);
+                        loadHistory();
+                    } else {
+                        showStatus(result.error, 'error');
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    showStatus('Error: ' + error.message, 'error');
+                })
+                .exchangePaste(newText);
+        }
+
+        function copyToRealClipboard() {
+            if (!currentCaptured) {
+                showStatus('Nothing to copy', 'error');
+                return;
+            }
+
+            navigator.clipboard.writeText(currentCaptured).then(function () {
+                showStatus('Copied to clipboard!', 'success');
+            }).catch(function (err) {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = currentCaptured;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showStatus('Copied to clipboard!', 'success');
+            });
+        }
+
+        function loadHistory() {
+            google.script.run
+                .withSuccessHandler(function (history) {
+                    const list = document.getElementById('historyList');
+
+                    if (!history || history.length === 0) {
+                        list.innerHTML = '<div class="history-empty">No history yet</div>';
+                        return;
+                    }
+
+                    list.innerHTML = history.map(function (item) {
+                        const truncated = item.text.length > 40
+                            ? item.text.substring(0, 37) + '...'
+                            : item.text;
+                        return '<div class="history-item" onclick="useFromHistory(\'' +
+                            escapeHtml(item.text) + '\')">' +
+                            '<div class="history-item-text">' + escapeHtml(truncated) + '</div>' +
+                            '</div>';
+                    }).join('');
+                })
+                .getHistory();
+        }
+
+        function useFromHistory(text) {
+            document.getElementById('clipboardText').value = text;
+            showStatus('Loaded from history', 'success');
+        }
+
+        function clearHistory() {
+            google.script.run
+                .withSuccessHandler(function () {
+                    loadHistory();
+                    showStatus('History cleared', 'success');
+                })
+                .clearHistory();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
+    </script>
+</body>
+
+</html>

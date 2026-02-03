@@ -1,0 +1,25 @@
+{
+    "timeZone": "America/New_York",
+    "dependencies": {},
+    "exceptionLogging": "STACKDRIVER",
+    "runtimeVersion": "V8",
+    "oauthScopes": [
+        "https://www.googleapis.com/auth/documents.currentonly",
+        "https://www.googleapis.com/auth/script.container.ui"
+    ],
+    "addOns": {
+        "common": {
+            "name": "SmartSwap",
+            "logoUrl": "https://www.gstatic.com/images/branding/product/2x/docs_2020q4_48dp.png",
+            "layoutProperties": {
+                "primaryColor": "#6366f1",
+                "secondaryColor": "#4f46e5"
+            }
+        },
+        "docs": {
+            "homepageTrigger": {
+                "runFunction": "onHomepage"
+            }
+        }
+    }
+}
