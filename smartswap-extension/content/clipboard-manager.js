@@ -80,64 +80,117 @@ const ClipboardManager = {
     },
 
     /**
-     * Perform the exchange paste operation
-     * This is the core of the SmartSwap functionality
-     * 
-     * Steps:
-     * 1. Capture the selected text (destination)
-     * 2. Allow the paste to happen normally (source replaces destination)
-     * 3. Update clipboard with the captured destination text
+     * Perform the exchange paste operation (legacy - uses pre-read selection)
      */
     performExchangePaste: async function (selectedText) {
         try {
             const timer = SmartSwapUtils.startTimer('Exchange Paste');
-
-            // Store the selected text in temp buffer
             this.setTempBuffer(selectedText);
-
             SmartSwapUtils.log('Exchange paste initiated');
-            SmartSwapUtils.log('Selected text (will be displaced):', selectedText.substring(0, 50) + (selectedText.length > 50 ? '...' : ''));
-
-            // The paste event will happen naturally
-            // We need to update the clipboard AFTER the paste completes
-            // Use a small delay to ensure the paste has completed
             setTimeout(async () => {
                 const displacedText = this.getTempBuffer();
                 if (displacedText) {
                     const success = await this.writeClipboard(displacedText);
                     if (success) {
                         SmartSwapUtils.log('✅ Exchange paste complete - clipboard now contains:', displacedText.substring(0, 50) + (displacedText.length > 50 ? '...' : ''));
-
-                        // Phase 2: Show visual feedback
                         if (SMARTSWAP_CONSTANTS.FEATURES.VISUAL_FEEDBACK && window.VisualFeedback) {
                             VisualFeedback.show(displacedText);
                         }
-
-                        // Phase 2: Add to clipboard history
                         if (SMARTSWAP_CONSTANTS.FEATURES.HISTORY_BUFFER && window.ClipboardHistory) {
                             await ClipboardHistory.addItem(displacedText);
                         }
-
-                        // Dispatch custom event for tracking
-                        window.dispatchEvent(new CustomEvent(SMARTSWAP_CONSTANTS.EVENTS.EXCHANGE_PASTE_COMPLETE, {
-                            detail: { displacedText }
-                        }));
+                        window.dispatchEvent(new CustomEvent(SMARTSWAP_CONSTANTS.EVENTS.EXCHANGE_PASTE_COMPLETE, { detail: { displacedText } }));
                     }
                     this.clearTempBuffer();
                 }
-
                 const duration = timer.end();
-
-                // Check if we met the performance requirement
                 if (duration > SMARTSWAP_CONSTANTS.MAX_LATENCY_MS) {
                     SmartSwapUtils.warn(`⚠️ Performance issue: Exchange paste took ${duration.toFixed(2)}ms (threshold: ${SMARTSWAP_CONSTANTS.MAX_LATENCY_MS}ms)`);
                 }
-            }, 10); // Small delay to let paste complete
-
+            }, 10);
             return true;
         } catch (error) {
             SmartSwapUtils.error('Exchange paste failed:', error);
             this.clearTempBuffer();
+            return false;
+        }
+    },
+
+    /**
+     * Get the document that contains the editor (Google Docs uses iframes).
+     * execCommand must run in the editor's document; paste can fire from main frame.
+     */
+    getEditorDocument: function (event) {
+        const targetDoc = event?.target?.ownerDocument;
+        if (targetDoc) return targetDoc;
+        const iframe = document.querySelector('iframe.docs-texteventtarget-iframe, iframe[title="docs-texteventtarget-iframe"], iframe[id="doc-contents-iframe"]');
+        if (iframe?.contentDocument) return iframe.contentDocument;
+        const editor = document.querySelector('.kix-appview-editor');
+        if (editor) return editor.ownerDocument;
+        return document;
+    },
+
+    /**
+     * Steal, Paste, Restore flow:
+     * preventDefault -> copy selection -> read displaced text -> restore original clipboard -> paste -> stash displaced text for next paste
+     */
+    performExchangePasteSteal: async function (event) {
+        // #region agent log
+        const _dbg = (loc, msg, d) => { try { const p={location:loc,message:msg,data:d||{},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'steal-flow',runId:'post-fix'}; console.log('[SmartSwap DBG]', loc, msg, d); fetch('http://127.0.0.1:7244/ingest/2c451608-727f-411e-9c84-4aeefb865d93',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).catch(()=>{}); } catch(e){} };
+        // #endregion
+        try {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const doc = this.getEditorDocument(event);
+            if (!doc) {
+                _dbg('clipboard-manager.js:performExchangePasteSteal:error', 'no editor doc');
+                return false;
+            }
+
+            const win = doc.defaultView || window;
+            if (win.focus) win.focus();
+
+            const eventClipboard = (event.clipboardData && event.clipboardData.getData('text/plain')) || '';
+            let originalClipboard = eventClipboard;
+            if (!originalClipboard) {
+                originalClipboard = (await this.readClipboard()) || '';
+            }
+            _dbg('clipboard-manager.js:performExchangePasteSteal:entry', 'paste', { pasteLen: originalClipboard.length, fromEvent: Boolean(eventClipboard) });
+
+            const copyResult = doc.execCommand('copy');
+            _dbg('clipboard-manager.js:performExchangePasteSteal:afterCopy', 'copy result', { copyResult });
+
+            await new Promise(resolve => setTimeout(resolve, 10));
+
+            const displacedText = await this.readClipboard();
+            const swapDetected = Boolean(displacedText) && displacedText !== originalClipboard;
+            _dbg('clipboard-manager.js:performExchangePasteSteal:afterRead', 'clipboard contents', { displacedLen: (displacedText || '').length, swapDetected });
+
+            await this.writeClipboard(originalClipboard);
+
+            const pasteResult = doc.execCommand('paste');
+            _dbg('clipboard-manager.js:performExchangePasteSteal:afterPaste', 'paste result', { pasteResult });
+
+            if (swapDetected) {
+                await this.writeClipboard(displacedText);
+                _dbg('clipboard-manager.js:performExchangePasteSteal:done', 'clipboard restored with displaced text', { displacedLen: displacedText.length, preview: displacedText.substring(0, 30) });
+
+                if (SMARTSWAP_CONSTANTS.FEATURES.VISUAL_FEEDBACK && window.VisualFeedback) {
+                    VisualFeedback.show(displacedText);
+                }
+                if (SMARTSWAP_CONSTANTS.FEATURES.HISTORY_BUFFER && window.ClipboardHistory) {
+                    await ClipboardHistory.addItem(displacedText);
+                }
+                window.dispatchEvent(new CustomEvent(SMARTSWAP_CONSTANTS.EVENTS.EXCHANGE_PASTE_COMPLETE, { detail: { displacedText } }));
+            } else {
+                _dbg('clipboard-manager.js:performExchangePasteSteal:done', 'no swap detected, clipboard unchanged', { displacedLen: (displacedText || '').length });
+            }
+
+            return true;
+        } catch (error) {
+            _dbg('clipboard-manager.js:performExchangePasteSteal:error', 'exception', { err: String(error) });
+            SmartSwapUtils.error('Exchange paste via steal failed:', error);
             return false;
         }
     }

@@ -118,79 +118,50 @@ console.log("SmartSwap: Early listeners registered (capture phase)");
     }
 
     /**
-     * Handle paste events
-     * This is where the magic happens - we intercept paste when text is selected
+     * Handle paste events with Steal, Paste, Restore sequence.
+     * Copy (Ctrl+C) stays normal; Cmd/Ctrl+V hijacks to copy selection, paste original clipboard, then restore displaced text.
      */
     window.handlePaste = async function (event) {
+        // #region agent log
+        const _dbg = (loc, msg, d) => { try { const p={location:loc,message:msg,data:d||{},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'paste-handler',runId:'post-fix'}; console.log('[SmartSwap DBG]', loc, msg, d); fetch('http://127.0.0.1:7244/ingest/2c451608-727f-411e-9c84-4aeefb865d93',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).catch(()=>{}); } catch(e){} };
+        // #endregion
         try {
-            // Prevent multiple simultaneous paste operations
-            if (pasteEventInProgress) {
-                SmartSwapUtils.log('Paste already in progress, skipping');
-                return;
-            }
-
-            // Check if extension is still enabled
+            if (pasteEventInProgress) return;
             const isEnabled = await SmartSwapUtils.isEnabled();
-            if (!isEnabled) {
-                SmartSwapUtils.log('Extension disabled, allowing normal paste');
+            if (!isEnabled) return;
+
+            if (!SelectionHandler.isInEditor()) return;
+
+            const targetDoc = event?.target?.ownerDocument;
+            const isTargetInOurFrame = !targetDoc || targetDoc === document;
+            if (!isTargetInOurFrame) {
                 return;
             }
-
-            // Check if we're in the editor
-            if (!SelectionHandler.isInEditor()) {
-                SmartSwapUtils.log('Not in editor, allowing normal paste');
-                return;
-            }
-
-            // FR 1.1: Detect if there's a text selection
-            const hasSelection = SelectionHandler.hasSelection();
-
-            if (!hasSelection) {
-                // FR 1.3: No selection - perform standard paste
-                SmartSwapUtils.log('No selection detected, allowing normal paste');
-                return;
-            }
-
-            // FR 1.2: There's a selection - perform exchange paste
-            SmartSwapUtils.log('🔄 Selection detected - initiating exchange paste');
 
             pasteEventInProgress = true;
+            _dbg('content.js:handlePaste:handle', 'intercepting paste');
 
-            // Get the selected text before it gets replaced
-            const selectedText = SelectionHandler.getSelectedText();
-
-            if (!selectedText) {
-                SmartSwapUtils.warn('Failed to get selected text, allowing normal paste');
-                pasteEventInProgress = false;
-                return;
+            const success = await ClipboardManager.performExchangePasteSteal(event);
+            if (!success) {
+                _dbg('content.js:handlePaste:fallback', 'steal flow failed, using native paste');
+                try {
+                    const doc = ClipboardManager.getEditorDocument(event);
+                    if (doc && typeof doc.execCommand === 'function') {
+                        doc.execCommand('paste');
+                    } else if (typeof document.execCommand === 'function') {
+                        document.execCommand('paste');
+                    }
+                } catch (fallbackError) {
+                    _dbg('content.js:handlePaste:fallbackError', 'native paste failed', { err: String(fallbackError) });
+                }
             }
 
-            // Log selection metadata for debugging
-            const metadata = SelectionHandler.getSelectionMetadata();
-            SmartSwapUtils.log('Selection metadata:', metadata);
-
-            // Dispatch event for tracking
-            window.dispatchEvent(new CustomEvent(SMARTSWAP_CONSTANTS.EVENTS.EXCHANGE_PASTE_START, {
-                detail: { selectedText }
-            }));
-
-            // Perform the exchange paste
-            // Note: We don't prevent the default paste behavior
-            // We let it happen, then update the clipboard with the displaced text
-            await ClipboardManager.performExchangePaste(selectedText);
-
-            // Reset flag after a short delay
-            setTimeout(() => {
-                pasteEventInProgress = false;
-            }, 100);
-
+            pasteEventInProgress = false;
         } catch (error) {
+            _dbg('content.js:handlePaste:error', 'exception', { err: String(error) });
             SmartSwapUtils.error('Error in paste handler:', error);
             pasteEventInProgress = false;
-
-            window.dispatchEvent(new CustomEvent(SMARTSWAP_CONSTANTS.EVENTS.ERROR, {
-                detail: { error: error.message }
-            }));
+            window.dispatchEvent(new CustomEvent(SMARTSWAP_CONSTANTS.EVENTS.ERROR, { detail: { error: error.message } }));
         }
     };
 

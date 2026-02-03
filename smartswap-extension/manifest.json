@@ -10,7 +10,8 @@
     "storage"
   ],
   "host_permissions": [
-    "https://docs.google.com/*"
+    "https://docs.google.com/*",
+    "http://127.0.0.1:7244/*"
   ],
   "background": {
     "service_worker": "background.js"
