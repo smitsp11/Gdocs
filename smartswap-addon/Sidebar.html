@@ -388,6 +388,248 @@
         .tip strong {
             color: #818cf8;
         }
+
+        /* Swap Mode Toggle */
+        .mode-toggle {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 16px;
+        }
+
+        .mode-toggle-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .mode-toggle-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #64748b;
+        }
+
+        .toggle-switch {
+            display: flex;
+            background: rgba(15, 15, 26, 0.6);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .toggle-option {
+            padding: 6px 10px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #64748b;
+            background: transparent;
+            border: none;
+            font-family: inherit;
+        }
+
+        .toggle-option.active {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+        }
+
+        .toggle-option:hover:not(.active) {
+            color: #e2e8f0;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .mode-description {
+            font-size: 10px;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        /* Formatting Badge */
+        .format-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 2px 6px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 600;
+            color: white;
+            margin-left: 6px;
+        }
+
+        .format-badge.no-format {
+            background: rgba(100, 116, 139, 0.3);
+            color: #94a3b8;
+        }
+
+        /* Smart Tools Section */
+        .smart-tools {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .smart-tools-title {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #a78bfa;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tool-group {
+            background: rgba(15, 15, 26, 0.4);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .tool-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .tool-group-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        .tool-row {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .tool-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .tool-input {
+            flex: 1;
+            padding: 8px 10px;
+            background: rgba(15, 15, 26, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 6px;
+            color: #e2e8f0;
+            font-size: 12px;
+            font-family: inherit;
+        }
+
+        .tool-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+        }
+
+        .tool-input::placeholder {
+            color: #64748b;
+        }
+
+        .tool-arrow {
+            display: flex;
+            align-items: center;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .tool-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tool-btn-preview {
+            background: rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .tool-btn-preview:hover {
+            background: rgba(139, 92, 246, 0.25);
+        }
+
+        .tool-btn-action {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+        }
+
+        .tool-btn-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+        }
+
+        .tool-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .tool-result {
+            font-size: 11px;
+            color: #94a3b8;
+            padding: 6px 8px;
+            background: rgba(15, 15, 26, 0.6);
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        .tool-result.found {
+            color: #a78bfa;
+        }
+
+        .tool-result.converted {
+            color: #22c55e;
+        }
+
+        .conversion-preview {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .conversion-from {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .conversion-arrow {
+            color: #22c55e;
+        }
+
+        .conversion-to {
+            color: #22c55e;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .no-conversion {
+            color: #64748b;
+            font-size: 11px;
+            font-style: italic;
+            padding: 8px;
+        }
     </style>
 </head>
 
@@ -396,6 +638,22 @@
         <div class="logo">↔️</div>
         <h1>SmartSwap</h1>
         <p class="tagline">Multi-slot clipboard for Google Docs</p>
+    </div>
+
+    <!-- Swap Mode Toggle -->
+    <div class="mode-toggle">
+        <div class="mode-toggle-header">
+            <span class="mode-toggle-label">Swap Mode</span>
+            <div class="toggle-switch">
+                <button class="toggle-option" id="mode-content" onclick="setSwapMode('content')">
+                    Content Only
+                </button>
+                <button class="toggle-option active" id="mode-everything" onclick="setSwapMode('everything')">
+                    Everything
+                </button>
+            </div>
+        </div>
+        <p id="modeDescription" class="mode-description">Text and formatting move together</p>
     </div>
 
     <!-- Smart Buffer Section -->
@@ -423,6 +681,45 @@
         </div>
     </div>
 
+    <!-- Smart Tools Section -->
+    <div class="smart-tools">
+        <div class="smart-tools-title">
+            <span>🧠</span> Smart Tools
+        </div>
+
+        <!-- Variable Renamer -->
+        <div class="tool-group">
+            <div class="tool-group-title">Variable Renamer</div>
+            <div class="tool-row">
+                <input type="text" class="tool-input" id="findText" placeholder="Find..." />
+                <span class="tool-arrow">→</span>
+                <input type="text" class="tool-input" id="replaceText" placeholder="Replace..." />
+            </div>
+            <div class="tool-row">
+                <button class="tool-btn tool-btn-preview" onclick="previewFind()">
+                    🔍 Preview
+                </button>
+                <button class="tool-btn tool-btn-action" id="replaceBtn" onclick="doReplace()" disabled>
+                    ✓ Replace All
+                </button>
+            </div>
+            <div id="findResult" class="tool-result" style="display: none;"></div>
+        </div>
+
+        <!-- Unit Converter -->
+        <div class="tool-group">
+            <div class="tool-group-title">Unit Converter</div>
+            <div id="conversionArea">
+                <div class="no-conversion">Select a value (e.g., "180°C", "10 km", "50 kg") and click Detect</div>
+            </div>
+            <div class="tool-row">
+                <button class="tool-btn tool-btn-preview" onclick="detectUnit()" style="flex: 1;">
+                    🔎 Detect Unit
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- History Section -->
     <div class="section">
         <div class="history-section">
@@ -445,9 +742,11 @@
     <script>
         let currentCaptured = '';
         let slots = [];
+        let currentSwapMode = 'everything';
 
         // Load on startup
         document.addEventListener('DOMContentLoaded', function () {
+            loadSwapMode();
             loadSlots();
             loadHistory();
         });
@@ -461,6 +760,56 @@
 
         function setLoading(loading) {
             document.body.classList.toggle('loading', loading);
+        }
+
+        // ============================================
+        // SWAP MODE FUNCTIONS
+        // ============================================
+
+        function loadSwapMode() {
+            google.script.run
+                .withSuccessHandler(function (mode) {
+                    currentSwapMode = mode || 'everything';
+                    updateModeUI();
+                })
+                .withFailureHandler(function (error) {
+                    console.log('Error loading swap mode:', error);
+                    currentSwapMode = 'everything';
+                    updateModeUI();
+                })
+                .getSwapMode();
+        }
+
+        function setSwapMode(mode) {
+            currentSwapMode = mode;
+            updateModeUI();
+
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    if (result.success) {
+                        showStatus('Swap mode: ' + mode, 'success');
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    showStatus('Error setting mode', 'error');
+                })
+                .setSwapMode(mode);
+        }
+
+        function updateModeUI() {
+            const contentBtn = document.getElementById('mode-content');
+            const everythingBtn = document.getElementById('mode-everything');
+            const description = document.getElementById('modeDescription');
+
+            if (currentSwapMode === 'content') {
+                contentBtn.classList.add('active');
+                everythingBtn.classList.remove('active');
+                description.textContent = 'Text moves, formatting stays in place';
+            } else {
+                contentBtn.classList.remove('active');
+                everythingBtn.classList.add('active');
+                description.textContent = 'Text and formatting move together';
+            }
         }
 
         // ============================================
@@ -483,9 +832,16 @@
             const container = document.getElementById('slotsContainer');
             container.innerHTML = slots.map(function (slot, i) {
                 const isFilled = slot.text && slot.text.length > 0;
+                const hasFormatting = slot.hasFormatting || false;
                 const preview = isFilled
                     ? (slot.text.length > 50 ? slot.text.substring(0, 47) + '...' : slot.text)
                     : 'Empty - select text and click Collect';
+
+                const formatBadge = isFilled
+                    ? (hasFormatting
+                        ? '<span class="format-badge">✨ Styled</span>'
+                        : '<span class="format-badge no-format">Plain</span>')
+                    : '';
 
                 return `
                     <div class="slot-card ${isFilled ? 'filled' : ''}" id="slot-${i}">
@@ -493,6 +849,7 @@
                             <div class="slot-number">${i + 1}</div>
                             <input type="text" class="slot-label" value="${escapeHtml(slot.label)}" 
                                    onchange="updateLabel(${i}, this.value)" />
+                            ${formatBadge}
                             <button class="slot-clear" onclick="clearSlot(${i})" title="Clear slot">×</button>
                         </div>
                         <div class="slot-preview ${isFilled ? '' : 'empty'}">${escapeHtml(preview)}</div>
@@ -516,6 +873,7 @@
                     setLoading(false);
                     if (result.success) {
                         slots[index].text = result.text;
+                        slots[index].hasFormatting = result.hasFormatting || false;
                         slots[index].timestamp = new Date().toISOString();
                         renderSlots();
                         highlightSlot(index);
@@ -686,6 +1044,176 @@
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
+
+        // ============================================
+        // SMART TOOLS FUNCTIONS
+        // ============================================
+
+        let lastFindCount = 0;
+        let currentConversion = null;
+
+        function previewFind() {
+            const findText = document.getElementById('findText').value.trim();
+            const resultDiv = document.getElementById('findResult');
+            const replaceBtn = document.getElementById('replaceBtn');
+
+            if (!findText) {
+                resultDiv.style.display = 'none';
+                replaceBtn.disabled = true;
+                showStatus('Enter text to find', 'error');
+                return;
+            }
+
+            setLoading(true);
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    setLoading(false);
+                    resultDiv.style.display = 'block';
+
+                    if (result.success) {
+                        lastFindCount = result.count;
+                        if (result.count > 0) {
+                            resultDiv.className = 'tool-result found';
+                            resultDiv.textContent = `Found ${result.count} occurrence${result.count !== 1 ? 's' : ''} in selection`;
+                            replaceBtn.disabled = false;
+                        } else {
+                            resultDiv.className = 'tool-result';
+                            resultDiv.textContent = 'No matches found in selection';
+                            replaceBtn.disabled = true;
+                        }
+                    } else {
+                        resultDiv.className = 'tool-result';
+                        resultDiv.textContent = result.error;
+                        replaceBtn.disabled = true;
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    resultDiv.style.display = 'block';
+                    resultDiv.className = 'tool-result';
+                    resultDiv.textContent = 'Error: ' + error.message;
+                    replaceBtn.disabled = true;
+                })
+                .findInSelection(findText, { caseSensitive: false, wholeWord: false });
+        }
+
+        function doReplace() {
+            const findText = document.getElementById('findText').value.trim();
+            const replaceText = document.getElementById('replaceText').value;
+            const resultDiv = document.getElementById('findResult');
+            const replaceBtn = document.getElementById('replaceBtn');
+
+            if (!findText) {
+                showStatus('Enter text to find', 'error');
+                return;
+            }
+
+            setLoading(true);
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    setLoading(false);
+
+                    if (result.success) {
+                        resultDiv.className = 'tool-result found';
+                        resultDiv.textContent = result.message;
+                        replaceBtn.disabled = true;
+                        showStatus(result.message, 'success');
+
+                        // Clear inputs
+                        document.getElementById('findText').value = '';
+                        document.getElementById('replaceText').value = '';
+                    } else {
+                        resultDiv.className = 'tool-result';
+                        resultDiv.textContent = result.error;
+                        showStatus(result.error, 'error');
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    resultDiv.className = 'tool-result';
+                    resultDiv.textContent = 'Error: ' + error.message;
+                    showStatus('Error: ' + error.message, 'error');
+                })
+                .replaceInSelection(findText, replaceText, { caseSensitive: false, wholeWord: false });
+        }
+
+        function detectUnit() {
+            const conversionArea = document.getElementById('conversionArea');
+
+            setLoading(true);
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    setLoading(false);
+
+                    if (result.success && result.canConvert) {
+                        currentConversion = result;
+
+                        let html = '<div class="conversion-preview">' +
+                            '<span class="conversion-from">' + escapeHtmlSimple(result.originalText) + '</span>' +
+                            '<span class="conversion-arrow">→</span>' +
+                            '<span class="conversion-to">' + escapeHtmlSimple(result.conversions[0].formatted) + '</span>' +
+                            '</div>';
+
+                        // Add convert buttons for each available conversion
+                        html += '<div class="tool-row">';
+                        result.conversions.forEach(function (conv) {
+                            html += '<button class="tool-btn tool-btn-action" onclick="convertTo(\'' + conv.toUnit + '\')" style="flex: 1;">' +
+                                '→ ' + conv.formatted +
+                                '</button>';
+                        });
+                        html += '</div>';
+
+                        conversionArea.innerHTML = html;
+                        showStatus('Unit detected: ' + result.unitType, 'success');
+                    } else {
+                        currentConversion = null;
+                        conversionArea.innerHTML = '<div class="no-conversion">' +
+                            (result.hint || result.error || 'No convertible unit found') +
+                            '</div>';
+                        if (result.error) {
+                            showStatus(result.error, 'error');
+                        }
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    currentConversion = null;
+                    conversionArea.innerHTML = '<div class="no-conversion">Error: ' + error.message + '</div>';
+                    showStatus('Error: ' + error.message, 'error');
+                })
+                .detectAndParseUnit();
+        }
+
+        function convertTo(toUnit) {
+            const conversionArea = document.getElementById('conversionArea');
+
+            setLoading(true);
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    setLoading(false);
+
+                    if (result.success) {
+                        conversionArea.innerHTML = '<div class="tool-result converted">' +
+                            result.message +
+                            '</div>';
+                        showStatus(result.message, 'success');
+                        currentConversion = null;
+                    } else {
+                        showStatus(result.error, 'error');
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    showStatus('Error: ' + error.message, 'error');
+                })
+                .convertSelectedUnit(toUnit);
+        }
+
+        function escapeHtmlSimple(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
     </script>
 </body>

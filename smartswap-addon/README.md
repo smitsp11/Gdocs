@@ -7,6 +7,29 @@
 - **Collect & Pour Workflow**: Select text → Click "Collect" → Select destination → Click "Pour"
 - **Editable Labels**: Name slots (e.g., "Intro", "Conclusion", "Quote")
 - **Persistent Storage**: Slots survive closing/reopening the sidebar
+- **Formatting Detection**: Shows ✨ Styled or Plain badge for each slot
+
+### 🎨 Style-Aware Swapping
+- **Two Swap Modes**: Toggle between "Content Only" and "Everything"
+  - **Content Only**: Text moves but destination formatting is preserved
+  - **Everything**: Text AND formatting move together
+- **Automatic Formatting Capture**: Collects bold, italic, underline, colors, font size, etc.
+- **Perfect for Editors**: Swap words without breaking document styling
+
+### 🧠 Smart Tools (NEW)
+
+#### Variable Renamer
+- **Scoped Find & Replace**: Rename variables only within your selection
+- **Preview Before Replace**: See match count before committing changes
+- **Safe**: Protects the rest of your document from accidental changes
+
+#### Unit Converter
+- **Auto-Detect Units**: Select "180°C" and it recognizes the unit type
+- **One-Click Convert**: Instantly swap to converted value
+- **Supported Units**:
+  - Temperature: °C ↔ °F ↔ K
+  - Distance: km ↔ mi, m ↔ ft, cm ↔ in
+  - Weight: kg ↔ lb, g ↔ oz
 
 ### ↔️ Quick Exchange
 - **Exchange Paste**: Replace selected text and capture what was there
