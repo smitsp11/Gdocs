@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSwap</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="popup-container">
+        <header class="popup-header">
+            <div class="logo">
+                <span class="logo-icon">↔️</span>
+                <h1 class="logo-text">SmartSwap</h1>
+            </div>
+            <p class="tagline">Smart clipboard for Google Docs</p>
+        </header>
+
+        <main class="popup-main">
+            <div class="toggle-section">
+                <div class="toggle-info">
+                    <span class="toggle-label">Extension</span>
+                    <span class="toggle-status" id="status-text">Enabled</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="enabled-toggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="toggle-section swap-mode-toggle">
+                <div class="toggle-info">
+                    <span class="toggle-label">Swap Mode</span>
+                    <span class="toggle-status swap-mode-status" id="swap-mode-status">Off</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="swap-mode-toggle">
+                    <span class="toggle-slider swap-slider"></span>
+                </label>
+            </div>
+
+            <div class="features-section">
+                <h2 class="features-title">Features</h2>
+                <ul class="features-list">
+                    <li class="feature-item">
+                        <span class="feature-icon">📋</span>
+                        <div class="feature-content">
+                            <strong>Exchange Paste</strong>
+                            <span>Paste over text → replaced text goes to clipboard</span>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <div class="feature-content">
+                            <strong>Quick Swap</strong>
+                            <span>Alt+X swaps adjacent words</span>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">🔄</span>
+                        <div class="feature-content">
+                            <strong>Drag and Swap</strong>
+                            <span>Alt+S toggles swap mode for drag-drop swaps</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="history-section" id="history-section">
+                <h2 class="history-title">
+                    Clipboard History
+                    <button class="clear-history" id="clear-history" title="Clear history">×</button>
+                </h2>
+                <ul class="history-list" id="history-list">
+                    <li class="history-empty">No swapped text yet</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer class="popup-footer">
+            <span class="version">v1.0.0</span>
+        </footer>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
