@@ -266,3 +266,216 @@ function clearHistory() {
   props.deleteProperty('exchangeHistory');
   return { success: true };
 }
+
+// ============================================
+// SMART BUFFER - MULTI-SLOT CLIPBOARD
+// ============================================
+
+const MAX_SLOTS = 5;
+
+/**
+ * Gets all clipboard slots.
+ * @returns {Array} Array of slot objects with text and label
+ */
+function getSlots() {
+  const props = PropertiesService.getUserProperties();
+  const slotsJson = props.getProperty('clipboardSlots');
+  
+  if (slotsJson) {
+    try {
+      return JSON.parse(slotsJson);
+    } catch (e) {
+      return initializeEmptySlots();
+    }
+  }
+  return initializeEmptySlots();
+}
+
+/**
+ * Initializes empty slots array.
+ * @returns {Array} Array of 5 empty slot objects
+ */
+function initializeEmptySlots() {
+  const slots = [];
+  for (let i = 0; i < MAX_SLOTS; i++) {
+    slots.push({
+      index: i,
+      text: '',
+      label: 'Slot ' + (i + 1),
+      timestamp: null
+    });
+  }
+  return slots;
+}
+
+/**
+ * Saves text to a specific slot.
+ * @param {number} index - Slot index (0-4)
+ * @param {string} text - Text to save
+ * @param {string} label - Optional custom label
+ * @returns {Object} Result with success status
+ */
+function saveToSlot(index, text, label) {
+  if (index < 0 || index >= MAX_SLOTS) {
+    return { success: false, error: 'Invalid slot index' };
+  }
+  
+  const props = PropertiesService.getUserProperties();
+  const slots = getSlots();
+  
+  slots[index] = {
+    index: index,
+    text: text || '',
+    label: label || slots[index].label || 'Slot ' + (index + 1),
+    timestamp: new Date().toISOString()
+  };
+  
+  props.setProperty('clipboardSlots', JSON.stringify(slots));
+  return { success: true, slot: slots[index] };
+}
+
+/**
+ * Collects selected text to a specific slot.
+ * @param {number} index - Slot index (0-4)
+ * @returns {Object} Result with captured text
+ */
+function collectToSlot(index) {
+  const selection = getSelectedText();
+  
+  if (!selection.success || !selection.hasSelection) {
+    return { success: false, error: 'No text selected' };
+  }
+  
+  const result = saveToSlot(index, selection.text);
+  if (result.success) {
+    return { 
+      success: true, 
+      text: selection.text,
+      message: `Saved to Slot ${index + 1}`
+    };
+  }
+  return result;
+}
+
+/**
+ * Pastes text from a slot at the current cursor position.
+ * @param {number} index - Slot index (0-4)
+ * @returns {Object} Result with success status
+ */
+function pasteFromSlot(index) {
+  if (index < 0 || index >= MAX_SLOTS) {
+    return { success: false, error: 'Invalid slot index' };
+  }
+  
+  const slots = getSlots();
+  const slot = slots[index];
+  
+  if (!slot.text) {
+    return { success: false, error: 'Slot is empty' };
+  }
+  
+  const doc = DocumentApp.getActiveDocument();
+  const selection = doc.getSelection();
+  
+  if (selection) {
+    // Replace selected text
+    const elements = selection.getRangeElements();
+    for (let i = elements.length - 1; i >= 0; i--) {
+      const element = elements[i];
+      if (element.getElement().editAsText) {
+        const text = element.getElement().editAsText();
+        if (element.isPartial()) {
+          const start = element.getStartOffset();
+          const end = element.getEndOffsetInclusive();
+          if (i === 0) {
+            text.deleteText(start, end);
+            text.insertText(start, slot.text);
+          } else {
+            text.deleteText(start, end);
+          }
+        } else {
+          if (i === 0) {
+            text.setText(slot.text);
+          } else {
+            text.setText('');
+          }
+        }
+      }
+    }
+  } else {
+    // Insert at cursor
+    const cursor = doc.getCursor();
+    if (cursor) {
+      const element = cursor.getElement();
+      const offset = cursor.getOffset();
+      if (element.editAsText) {
+        element.editAsText().insertText(offset, slot.text);
+      } else {
+        return { success: false, error: 'Cannot insert at this position' };
+      }
+    } else {
+      return { success: false, error: 'No cursor position found. Click in the document first.' };
+    }
+  }
+  
+  return { 
+    success: true, 
+    text: slot.text,
+    message: `Pasted from Slot ${index + 1}`
+  };
+}
+
+/**
+ * Clears a specific slot.
+ * @param {number} index - Slot index (0-4)
+ * @returns {Object} Result with success status
+ */
+function clearSlot(index) {
+  if (index < 0 || index >= MAX_SLOTS) {
+    return { success: false, error: 'Invalid slot index' };
+  }
+  
+  const props = PropertiesService.getUserProperties();
+  const slots = getSlots();
+  
+  slots[index] = {
+    index: index,
+    text: '',
+    label: 'Slot ' + (index + 1),
+    timestamp: null
+  };
+  
+  props.setProperty('clipboardSlots', JSON.stringify(slots));
+  return { success: true };
+}
+
+/**
+ * Clears all slots.
+ * @returns {Object} Result with success status
+ */
+function clearAllSlots() {
+  const props = PropertiesService.getUserProperties();
+  props.deleteProperty('clipboardSlots');
+  return { success: true };
+}
+
+/**
+ * Updates a slot's label.
+ * @param {number} index - Slot index (0-4)
+ * @param {string} label - New label
+ * @returns {Object} Result with success status
+ */
+function updateSlotLabel(index, label) {
+  if (index < 0 || index >= MAX_SLOTS) {
+    return { success: false, error: 'Invalid slot index' };
+  }
+  
+  const props = PropertiesService.getUserProperties();
+  const slots = getSlots();
+  
+  slots[index].label = label || 'Slot ' + (index + 1);
+  
+  props.setProperty('clipboardSlots', JSON.stringify(slots));
+  return { success: true, slot: slots[index] };
+}
+

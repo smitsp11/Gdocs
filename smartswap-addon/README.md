@@ -1,5 +1,19 @@
 # SmartSwap Add-on - Setup Instructions
 
+## Features
+
+### 🎯 Smart Buffer (Multi-Slot Clipboard)
+- **5 Named Slots**: Collect multiple text fragments for reorganizing documents
+- **Collect & Pour Workflow**: Select text → Click "Collect" → Select destination → Click "Pour"
+- **Editable Labels**: Name slots (e.g., "Intro", "Conclusion", "Quote")
+- **Persistent Storage**: Slots survive closing/reopening the sidebar
+
+### ↔️ Quick Exchange
+- **Exchange Paste**: Replace selected text and capture what was there
+- **History**: Access previously captured text
+
+---
+
 ## How to Deploy
 
 ### Option 1: Apps Script Editor (Recommended for Testing)
@@ -26,11 +40,18 @@ clasp push
 clasp open
 ```
 
+---
+
 ## Usage
 
+### Smart Buffer (Collect & Pour)
 1. Open a Google Doc
 2. Go to **Extensions** → **SmartSwap** → **Open SmartSwap**
-3. Select text in doc → Click **Copy Selection to Here**
-4. Select different text → Click **Exchange Paste**
-5. The replaced text appears in "Captured Text" section
-6. Click **Copy to System Clipboard** to use it elsewhere
+3. Select text in doc → Click **Collect** on any slot
+4. Repeat to fill multiple slots with different text fragments
+5. Position cursor or select destination text → Click **Pour** to insert
+
+### Quick Exchange  
+1. Select text in doc → Click **Copy Selection to Here**
+2. Select different text → Click **Exchange Paste**
+3. The replaced text appears in the input area for reuse

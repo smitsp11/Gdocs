@@ -56,18 +56,176 @@
             letter-spacing: 0.8px;
             color: #64748b;
             margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .clipboard-area {
-            background: rgba(99, 102, 241, 0.08);
-            border: 1px solid rgba(99, 102, 241, 0.2);
+        .section-title-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 10px;
+            padding: 2px 6px;
+        }
+
+        .section-title-btn:hover {
+            color: #ef4444;
+        }
+
+        /* Smart Buffer Slots */
+        .slots-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .slot-card {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 8px;
+            padding: 10px;
+            transition: all 0.2s;
+        }
+
+        .slot-card.filled {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .slot-card.active {
+            border-color: #22c55e;
+            box-shadow: 0 0 12px rgba(34, 197, 94, 0.2);
+        }
+
+        .slot-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .slot-number {
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .slot-label {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #e2e8f0;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: inherit;
+            padding: 2px 0;
+        }
+
+        .slot-label:focus {
+            outline: none;
+            border-bottom: 1px solid #6366f1;
+        }
+
+        .slot-clear {
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 2px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .slot-card:hover .slot-clear {
+            opacity: 1;
+        }
+
+        .slot-clear:hover {
+            color: #ef4444;
+        }
+
+        .slot-preview {
+            font-size: 11px;
+            color: #94a3b8;
+            min-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 8px;
+            padding: 4px 6px;
+            background: rgba(15, 15, 26, 0.5);
+            border-radius: 4px;
+        }
+
+        .slot-preview.empty {
+            color: #475569;
+            font-style: italic;
+        }
+
+        .slot-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .slot-btn {
+            flex: 1;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .slot-btn-collect {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .slot-btn-collect:hover {
+            background: rgba(99, 102, 241, 0.25);
+        }
+
+        .slot-btn-paste {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+        }
+
+        .slot-btn-paste:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        }
+
+        .slot-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Quick Exchange Section */
+        .exchange-section {
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.2);
             border-radius: 8px;
             padding: 12px;
         }
 
         textarea {
             width: 100%;
-            min-height: 80px;
+            min-height: 60px;
             background: rgba(15, 15, 26, 0.8);
             border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 6px;
@@ -122,29 +280,7 @@
             cursor: not-allowed;
         }
 
-        .captured-section {
-            background: rgba(34, 197, 94, 0.08);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            border-radius: 8px;
-            padding: 12px;
-        }
-
-        .captured-text {
-            background: rgba(15, 15, 26, 0.8);
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 13px;
-            color: #22c55e;
-            min-height: 40px;
-            word-break: break-word;
-            margin-bottom: 8px;
-        }
-
-        .captured-empty {
-            color: #64748b;
-            font-style: italic;
-        }
-
+        /* History Section */
         .history-section {
             background: rgba(99, 102, 241, 0.05);
             border: 1px solid rgba(99, 102, 241, 0.1);
@@ -183,12 +319,12 @@
         }
 
         .history-list {
-            max-height: 150px;
+            max-height: 120px;
             overflow-y: auto;
         }
 
         .history-item {
-            padding: 10px 12px;
+            padding: 8px 12px;
             border-bottom: 1px solid rgba(99, 102, 241, 0.08);
             cursor: pointer;
             transition: background 0.2s;
@@ -203,7 +339,7 @@
         }
 
         .history-item-text {
-            font-size: 12px;
+            font-size: 11px;
             color: #e2e8f0;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -211,10 +347,10 @@
         }
 
         .history-empty {
-            padding: 16px 12px;
+            padding: 12px;
             text-align: center;
             color: #64748b;
-            font-size: 12px;
+            font-size: 11px;
             font-style: italic;
         }
 
@@ -238,6 +374,20 @@
             opacity: 0.7;
             pointer-events: none;
         }
+
+        /* Tip */
+        .tip {
+            background: rgba(99, 102, 241, 0.08);
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 10px;
+            color: #94a3b8;
+            margin-top: 12px;
+        }
+
+        .tip strong {
+            color: #818cf8;
+        }
     </style>
 </head>
 
@@ -245,12 +395,24 @@
     <div class="header">
         <div class="logo">↔️</div>
         <h1>SmartSwap</h1>
-        <p class="tagline">Smart clipboard for Google Docs</p>
+        <p class="tagline">Multi-slot clipboard for Google Docs</p>
     </div>
 
+    <!-- Smart Buffer Section -->
     <div class="section">
-        <div class="section-title">Your Clipboard</div>
-        <div class="clipboard-area">
+        <div class="section-title">
+            <span>Smart Buffer</span>
+            <button class="section-title-btn" onclick="clearAllSlots()" title="Clear all slots">Clear All</button>
+        </div>
+        <div id="slotsContainer" class="slots-container">
+            <!-- Slots will be rendered here -->
+        </div>
+    </div>
+
+    <!-- Quick Exchange Section -->
+    <div class="section">
+        <div class="section-title">Quick Exchange</div>
+        <div class="exchange-section">
             <textarea id="clipboardText" placeholder="Paste or type text here..."></textarea>
             <button class="btn btn-secondary" onclick="copySelection()">
                 📋 Copy Selection to Here
@@ -261,18 +423,7 @@
         </div>
     </div>
 
-    <div class="section">
-        <div class="section-title">Captured Text (Second Clipboard)</div>
-        <div class="captured-section">
-            <div id="capturedText" class="captured-text captured-empty">
-                Nothing captured yet
-            </div>
-            <button class="btn btn-secondary" onclick="copyToRealClipboard()">
-                📋 Copy to System Clipboard
-            </button>
-        </div>
-    </div>
-
+    <!-- History Section -->
     <div class="section">
         <div class="history-section">
             <div class="history-header">
@@ -287,11 +438,17 @@
 
     <div id="status" class="status"></div>
 
+    <div class="tip">
+        <strong>Tip:</strong> Select text → Click Collect → Select destination → Click Pour
+    </div>
+
     <script>
         let currentCaptured = '';
+        let slots = [];
 
-        // Load history on startup
+        // Load on startup
         document.addEventListener('DOMContentLoaded', function () {
+            loadSlots();
             loadHistory();
         });
 
@@ -305,6 +462,134 @@
         function setLoading(loading) {
             document.body.classList.toggle('loading', loading);
         }
+
+        // ============================================
+        // SMART BUFFER FUNCTIONS
+        // ============================================
+
+        function loadSlots() {
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    slots = result;
+                    renderSlots();
+                })
+                .withFailureHandler(function (error) {
+                    showStatus('Error loading slots', 'error');
+                })
+                .getSlots();
+        }
+
+        function renderSlots() {
+            const container = document.getElementById('slotsContainer');
+            container.innerHTML = slots.map(function (slot, i) {
+                const isFilled = slot.text && slot.text.length > 0;
+                const preview = isFilled
+                    ? (slot.text.length > 50 ? slot.text.substring(0, 47) + '...' : slot.text)
+                    : 'Empty - select text and click Collect';
+
+                return `
+                    <div class="slot-card ${isFilled ? 'filled' : ''}" id="slot-${i}">
+                        <div class="slot-header">
+                            <div class="slot-number">${i + 1}</div>
+                            <input type="text" class="slot-label" value="${escapeHtml(slot.label)}" 
+                                   onchange="updateLabel(${i}, this.value)" />
+                            <button class="slot-clear" onclick="clearSlot(${i})" title="Clear slot">×</button>
+                        </div>
+                        <div class="slot-preview ${isFilled ? '' : 'empty'}">${escapeHtml(preview)}</div>
+                        <div class="slot-actions">
+                            <button class="slot-btn slot-btn-collect" onclick="collectToSlot(${i})">
+                                📥 Collect
+                            </button>
+                            <button class="slot-btn slot-btn-paste" onclick="pasteFromSlot(${i})" ${isFilled ? '' : 'disabled'}>
+                                📤 Pour
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function collectToSlot(index) {
+            setLoading(true);
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    setLoading(false);
+                    if (result.success) {
+                        slots[index].text = result.text;
+                        slots[index].timestamp = new Date().toISOString();
+                        renderSlots();
+                        highlightSlot(index);
+                        showStatus(result.message, 'success');
+                    } else {
+                        showStatus(result.error, 'error');
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    showStatus('Error: ' + error.message, 'error');
+                })
+                .collectToSlot(index);
+        }
+
+        function pasteFromSlot(index) {
+            setLoading(true);
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    setLoading(false);
+                    if (result.success) {
+                        highlightSlot(index);
+                        showStatus(result.message, 'success');
+                    } else {
+                        showStatus(result.error, 'error');
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    showStatus('Error: ' + error.message, 'error');
+                })
+                .pasteFromSlot(index);
+        }
+
+        function clearSlot(index) {
+            google.script.run
+                .withSuccessHandler(function () {
+                    slots[index].text = '';
+                    slots[index].timestamp = null;
+                    renderSlots();
+                    showStatus('Slot cleared', 'success');
+                })
+                .clearSlot(index);
+        }
+
+        function clearAllSlots() {
+            if (!confirm('Clear all slots?')) return;
+            google.script.run
+                .withSuccessHandler(function () {
+                    loadSlots();
+                    showStatus('All slots cleared', 'success');
+                })
+                .clearAllSlots();
+        }
+
+        function updateLabel(index, label) {
+            google.script.run
+                .withSuccessHandler(function () {
+                    slots[index].label = label;
+                })
+                .updateSlotLabel(index, label);
+        }
+
+        function highlightSlot(index) {
+            const card = document.getElementById('slot-' + index);
+            if (card) {
+                card.classList.add('active');
+                setTimeout(() => card.classList.remove('active'), 1500);
+            }
+        }
+
+        // ============================================
+        // QUICK EXCHANGE FUNCTIONS
+        // ============================================
 
         function copySelection() {
             setLoading(true);
@@ -339,8 +624,7 @@
                     setLoading(false);
                     if (result.success) {
                         currentCaptured = result.capturedText;
-                        document.getElementById('capturedText').textContent = result.capturedText;
-                        document.getElementById('capturedText').classList.remove('captured-empty');
+                        document.getElementById('clipboardText').value = result.capturedText;
                         showStatus('Exchange complete!', 'success');
 
                         // Add to history
@@ -357,25 +641,9 @@
                 .exchangePaste(newText);
         }
 
-        function copyToRealClipboard() {
-            if (!currentCaptured) {
-                showStatus('Nothing to copy', 'error');
-                return;
-            }
-
-            navigator.clipboard.writeText(currentCaptured).then(function () {
-                showStatus('Copied to clipboard!', 'success');
-            }).catch(function (err) {
-                // Fallback for older browsers
-                const textarea = document.createElement('textarea');
-                textarea.value = currentCaptured;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                showStatus('Copied to clipboard!', 'success');
-            });
-        }
+        // ============================================
+        // HISTORY FUNCTIONS
+        // ============================================
 
         function loadHistory() {
             google.script.run
@@ -388,8 +656,8 @@
                     }
 
                     list.innerHTML = history.map(function (item) {
-                        const truncated = item.text.length > 40
-                            ? item.text.substring(0, 37) + '...'
+                        const truncated = item.text.length > 35
+                            ? item.text.substring(0, 32) + '...'
                             : item.text;
                         return '<div class="history-item" onclick="useFromHistory(\'' +
                             escapeHtml(item.text) + '\')">' +
