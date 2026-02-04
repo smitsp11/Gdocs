@@ -3,7 +3,7 @@
 
 <head>
     <base target="_top">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,568 +12,403 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
-            color: #e2e8f0;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: #202124;
             min-height: 100vh;
-            padding: 16px;
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        .logo {
-            font-size: 24px;
-            margin-bottom: 4px;
-        }
-
-        h1 {
-            font-size: 18px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .tagline {
-            font-size: 11px;
-            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.5;
         }
 
         /* ==========================================
-           PRIMARY BUFFER (Hero Zone)
+           HEADER
            ========================================== */
-        .primary-buffer {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);
-            border: 1px solid rgba(99, 102, 241, 0.25);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-        }
-
-        .buffer-header {
+        .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #f8f9fa;
         }
 
-        .buffer-title {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #818cf8;
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 6px;
-        }
-
-        .buffer-source {
-            font-size: 10px;
-            color: #64748b;
-            background: rgba(15, 15, 26, 0.5);
-            padding: 3px 8px;
-            border-radius: 4px;
-        }
-
-        .buffer-preview {
-            background: rgba(15, 15, 26, 0.6);
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            border-radius: 8px;
-            padding: 14px;
-            min-height: 80px;
-            max-height: 120px;
-            overflow-y: auto;
-            margin-bottom: 12px;
-        }
-
-        .buffer-text {
-            font-size: 13px;
-            line-height: 1.5;
-            color: #e2e8f0;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .buffer-empty {
-            color: #475569;
-            font-style: italic;
-            font-size: 12px;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        .buffer-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
-        }
-
-        .meta-badge {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 8px;
-            background: rgba(15, 15, 26, 0.5);
-            border-radius: 4px;
-            font-size: 10px;
-            color: #94a3b8;
-        }
-
-        .meta-badge.styled {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.15) 100%);
-            color: #fbbf24;
-        }
-
-        .meta-badge.plain {
-            color: #64748b;
-        }
-
-        .buffer-actions {
-            display: flex;
             gap: 8px;
         }
 
-        .buffer-btn {
-            flex: 1;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+        .header-logo {
+            font-size: 18px;
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .header-actions {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            gap: 4px;
         }
 
-        .buffer-btn-capture {
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
-            border: 1px solid rgba(99, 102, 241, 0.3);
+        .header-btn {
+            background: none;
+            border: none;
+            padding: 6px;
+            cursor: pointer;
+            border-radius: 50%;
+            color: #5f6368;
+            font-size: 16px;
+            transition: background 0.2s;
         }
 
-        .buffer-btn-capture:hover {
-            background: rgba(99, 102, 241, 0.25);
-            transform: translateY(-1px);
-        }
-
-        .buffer-btn-pour {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            color: white;
-        }
-
-        .buffer-btn-pour:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-
-        .buffer-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none !important;
+        .header-btn:hover {
+            background: #e8eaed;
         }
 
         /* ==========================================
-           THE STACK (Slot Pills)
+           CONTEXTUAL ACTION (Dynamic Section)
            ========================================== */
-        .the-stack {
-            margin-bottom: 24px;
+        .context-section {
+            padding: 16px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fafafa;
         }
 
-        .stack-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .stack-title {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #64748b;
-        }
-
-        .stack-clear-all {
-            background: none;
-            border: none;
-            color: #64748b;
-            cursor: pointer;
-            font-size: 9px;
-            padding: 2px 6px;
-        }
-
-        .stack-clear-all:hover {
-            color: #ef4444;
-        }
-
-        .stack-pills {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .stack-pill {
+        .context-label {
+            font-size: 12px;
+            color: #5f6368;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 6px;
+        }
+
+        .context-selection {
+            font-size: 14px;
+            color: #202124;
+            font-weight: 500;
             padding: 8px 12px;
-            background: rgba(99, 102, 241, 0.08);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
+            background: #fff;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .stack-pill:hover {
-            background: rgba(99, 102, 241, 0.15);
-            border-color: rgba(99, 102, 241, 0.35);
-        }
-
-        .stack-pill.active {
-            background: rgba(99, 102, 241, 0.2);
-            border-color: #6366f1;
-            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-        }
-
-        .stack-pill.empty {
-            opacity: 0.5;
+        .context-selection.empty {
+            color: #80868b;
+            font-weight: 400;
+            font-style: italic;
             border-style: dashed;
         }
 
-        .pill-number {
-            width: 18px;
-            height: 18px;
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            border-radius: 50%;
+        .context-primary-btn {
+            width: 100%;
+            padding: 10px 16px;
+            background: #6200ee;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .context-primary-btn:hover {
+            background: #5000d4;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .context-primary-btn:disabled {
+            background: #e0e0e0;
+            color: #9aa0a6;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .suggested-label {
+            font-size: 12px;
+            color: #5f6368;
+            margin-bottom: 8px;
+        }
+
+        .suggested-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: #fff;
+            border: 1px solid #dadce0;
+            border-radius: 16px;
+            font-size: 13px;
+            color: #202124;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chip:hover {
+            background: #f1f3f4;
+            border-color: #6200ee;
+        }
+
+        .chip-icon {
+            font-size: 14px;
+        }
+
+        .chip.hidden {
+            display: none;
+        }
+
+        /* ==========================================
+           YOUR CLIPS (Content Snippets)
+           ========================================== */
+        .clips-section {
+            padding: 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .clips-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 700;
-            color: white;
+            justify-content: space-between;
+            margin-bottom: 12px;
         }
 
-        .stack-pill.empty .pill-number {
-            background: #475569;
-        }
-
-        .pill-label {
-            font-size: 11px;
-            font-weight: 500;
-            color: #e2e8f0;
-            max-width: 60px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .pill-styled {
-            font-size: 10px;
-        }
-
-        .pill-clear {
-            background: none;
-            border: none;
-            color: #64748b;
-            cursor: pointer;
+        .clips-title {
             font-size: 12px;
-            padding: 0;
-            margin-left: 2px;
+            font-weight: 500;
+            color: #5f6368;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .clips-add-btn {
+            background: none;
+            border: 1px solid #dadce0;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 12px;
+            color: #6200ee;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .clips-add-btn:hover {
+            background: #f3e8ff;
+            border-color: #6200ee;
+        }
+
+        .clips-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .clip-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f3f4;
+            position: relative;
+        }
+
+        .clip-item:last-child {
+            border-bottom: none;
+        }
+
+        .clip-item:hover {
+            background: #fafafa;
+            margin: 0 -16px;
+            padding: 12px 16px;
+        }
+
+        .clip-content {
+            font-size: 14px;
+            color: #202124;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .clip-content:hover {
+            color: #6200ee;
+        }
+
+        .clip-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: #80868b;
+            margin-bottom: 6px;
+        }
+
+        .clip-badge {
+            background: #f1f3f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+
+        .clip-badge.styled {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .clip-actions {
+            display: flex;
+            gap: 4px;
             opacity: 0;
             transition: opacity 0.2s;
         }
 
-        .stack-pill:hover .pill-clear {
+        .clip-item:hover .clip-actions {
             opacity: 1;
         }
 
-        .pill-clear:hover {
-            color: #ef4444;
+        .clip-btn {
+            background: #fff;
+            border: 1px solid #dadce0;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 11px;
+            color: #5f6368;
+            cursor: pointer;
+            transition: all 0.15s;
         }
 
-        /* Tooltip */
-        .stack-pill[data-tooltip]:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 6px 10px;
-            background: #1e1e2e;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 6px;
-            font-size: 10px;
-            color: #e2e8f0;
-            white-space: nowrap;
-            max-width: 200px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 6px;
-            z-index: 100;
+        .clip-btn:hover {
+            background: #f1f3f4;
+            color: #202124;
         }
 
-        /* ==========================================
-           QUICK ACTIONS (Contextual)
-           ========================================== */
-        .quick-actions {
-            margin-bottom: 24px;
+        .clip-btn.primary {
+            background: #6200ee;
+            border-color: #6200ee;
+            color: white;
         }
 
-        .quick-actions.hidden {
-            display: none;
+        .clip-btn.primary:hover {
+            background: #5000d4;
         }
 
-        .actions-header {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #a78bfa;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .clip-btn.pin {
+            padding: 4px 6px;
         }
 
-        .action-card {
-            background: rgba(34, 197, 94, 0.08);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            border-radius: 8px;
-            padding: 10px 12px;
+        .clip-btn.pin.pinned {
+            color: #6200ee;
+        }
+
+        .clips-empty {
+            text-align: center;
+            padding: 24px 16px;
+            color: #80868b;
+            font-size: 13px;
+        }
+
+        .clips-empty-icon {
+            font-size: 32px;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.2s;
-        }
-
-        .action-card:hover {
-            background: rgba(34, 197, 94, 0.12);
-        }
-
-        .action-card.unit-action {
-            background: rgba(34, 197, 94, 0.08);
-            border-color: rgba(34, 197, 94, 0.2);
-        }
-
-        .action-card.var-action {
-            background: rgba(139, 92, 246, 0.08);
-            border-color: rgba(139, 92, 246, 0.2);
-        }
-
-        .action-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .action-icon {
-            font-size: 16px;
-        }
-
-        .action-text {
-            font-size: 12px;
-            color: #e2e8f0;
-        }
-
-        .action-subtext {
-            font-size: 10px;
-            color: #64748b;
-        }
-
-        .action-btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            color: white;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
-        }
-
-        .action-btn.var-btn {
-            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-        }
-
-        .action-btn.var-btn:hover {
-            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+            opacity: 0.5;
         }
 
         /* ==========================================
-           QUICK EXCHANGE
+           SMART TOOLS (Accordions)
            ========================================== */
-        .quick-exchange {
-            background: rgba(99, 102, 241, 0.05);
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 24px;
+        .tools-section {
+            padding: 0 16px 16px;
         }
 
-        .exchange-header {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #64748b;
-            margin-bottom: 10px;
-        }
-
-        .exchange-textarea {
-            width: 100%;
-            height: 60px;
-            background: rgba(15, 15, 26, 0.6);
-            border: 1px solid rgba(99, 102, 241, 0.2);
+        .tool-accordion {
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
-            padding: 10px;
-            color: #e2e8f0;
-            font-family: inherit;
-            font-size: 12px;
-            resize: none;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
         }
 
-        .exchange-textarea:focus {
-            outline: none;
-            border-color: #6366f1;
-        }
-
-        .exchange-textarea::placeholder {
-            color: #475569;
-        }
-
-        .exchange-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .exchange-btn {
-            flex: 1;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .exchange-btn-copy {
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .exchange-btn-copy:hover {
-            background: rgba(99, 102, 241, 0.25);
-        }
-
-        .exchange-btn-swap {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            color: white;
-        }
-
-        .exchange-btn-swap:hover {
-            transform: translateY(-1px);
-        }
-
-        /* ==========================================
-           SMART TOOLS (Expanded)
-           ========================================== */
-        .smart-tools {
-            background: rgba(139, 92, 246, 0.06);
-            border: 1px solid rgba(139, 92, 246, 0.15);
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 24px;
-        }
-
-        .smart-tools.collapsed .tools-content {
-            display: none;
-        }
-
-        .tools-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-
-        .tools-title {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #a78bfa;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .tools-toggle {
-            background: none;
-            border: none;
-            color: #64748b;
-            cursor: pointer;
-            font-size: 12px;
-            transition: transform 0.2s;
-        }
-
-        .smart-tools.collapsed .tools-toggle {
-            transform: rotate(-90deg);
-        }
-
-        .tools-content {
-            margin-top: 12px;
-        }
-
-        .tool-section {
-            background: rgba(15, 15, 26, 0.4);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
-        }
-
-        .tool-section:last-child {
+        .tool-accordion:last-child {
             margin-bottom: 0;
         }
 
-        .tool-section-title {
-            font-size: 11px;
-            font-weight: 600;
-            color: #e2e8f0;
-            margin-bottom: 10px;
+        .tool-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: #fafafa;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .tool-header:hover {
+            background: #f1f3f4;
+        }
+
+        .tool-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-icon {
+            font-size: 16px;
+        }
+
+        .tool-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .tool-toggle {
+            font-size: 12px;
+            color: #5f6368;
+            transition: transform 0.2s;
+        }
+
+        .tool-accordion.open .tool-toggle {
+            transform: rotate(180deg);
+        }
+
+        .tool-body {
+            padding: 14px;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            display: none;
+        }
+
+        .tool-accordion.open .tool-body {
+            display: block;
         }
 
         .tool-row {
             display: flex;
-            gap: 6px;
-            margin-bottom: 8px;
+            gap: 8px;
+            margin-bottom: 10px;
         }
 
         .tool-row:last-child {
@@ -582,241 +417,235 @@
 
         .tool-input {
             flex: 1;
-            padding: 8px 10px;
-            background: rgba(15, 15, 26, 0.8);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 6px;
-            color: #e2e8f0;
-            font-size: 12px;
+            padding: 8px 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
             font-family: inherit;
+            font-size: 13px;
+            color: #202124;
+            background: #fff;
         }
 
         .tool-input:focus {
             outline: none;
-            border-color: #8b5cf6;
+            border-color: #6200ee;
         }
 
         .tool-input::placeholder {
-            color: #64748b;
+            color: #9aa0a6;
         }
 
         .tool-arrow {
             display: flex;
             align-items: center;
-            color: #64748b;
+            color: #80868b;
             font-size: 14px;
         }
 
         .tool-btn {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 6px;
+            padding: 8px 14px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
             font-family: inherit;
-            font-size: 11px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.15s;
+            background: #fff;
+            color: #5f6368;
         }
 
-        .tool-btn-secondary {
-            background: rgba(139, 92, 246, 0.15);
-            color: #a78bfa;
-            border: 1px solid rgba(139, 92, 246, 0.3);
+        .tool-btn:hover {
+            background: #f1f3f4;
+            color: #202124;
         }
 
-        .tool-btn-secondary:hover {
-            background: rgba(139, 92, 246, 0.25);
-        }
-
-        .tool-btn-primary {
-            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        .tool-btn.primary {
+            background: #6200ee;
+            border-color: #6200ee;
             color: white;
         }
 
-        .tool-btn-primary:hover {
-            transform: translateY(-1px);
+        .tool-btn.primary:hover {
+            background: #5000d4;
         }
 
         .tool-btn:disabled {
-            opacity: 0.4;
+            opacity: 0.5;
             cursor: not-allowed;
-            transform: none !important;
         }
 
         .tool-result {
-            font-size: 11px;
-            color: #94a3b8;
-            padding: 6px 8px;
-            background: rgba(15, 15, 26, 0.6);
+            font-size: 12px;
+            color: #5f6368;
+            padding: 8px 10px;
+            background: #f8f9fa;
             border-radius: 4px;
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         .tool-result.success {
-            color: #22c55e;
-        }
-
-        .unit-detect-area {
-            padding: 8px;
-            text-align: center;
-            color: #64748b;
-            font-size: 11px;
-            font-style: italic;
+            background: #e6f4ea;
+            color: #137333;
         }
 
         .unit-preview {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(34, 197, 94, 0.08);
-            border: 1px solid rgba(34, 197, 94, 0.2);
+            gap: 12px;
+            padding: 12px;
+            background: #e6f4ea;
             border-radius: 6px;
             margin-bottom: 10px;
         }
 
         .unit-from {
-            font-size: 13px;
-            color: #94a3b8;
-        }
-
-        .unit-arrow {
-            color: #22c55e;
+            color: #5f6368;
             font-size: 14px;
         }
 
+        .unit-arrow {
+            color: #137333;
+        }
+
         .unit-to {
-            font-size: 13px;
-            font-weight: 600;
-            color: #22c55e;
+            color: #137333;
+            font-weight: 500;
+            font-size: 14px;
         }
 
         .unit-buttons {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .unit-btn {
             flex: 1;
-            min-width: 80px;
-            padding: 8px 10px;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            min-width: 100px;
+            padding: 8px 12px;
+            background: #137333;
             border: none;
-            border-radius: 6px;
+            border-radius: 4px;
             color: white;
             font-family: inherit;
-            font-size: 11px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.15s;
         }
 
         .unit-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+            background: #0d5c27;
         }
 
-        /* ==========================================
-           HISTORY
-           ========================================== */
-        .history-section {
-            background: rgba(99, 102, 241, 0.05);
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 16px;
-        }
-
-        .history-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 12px;
-            background: rgba(15, 15, 26, 0.3);
-        }
-
-        .history-title {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #64748b;
-        }
-
-        .history-clear {
-            background: none;
-            border: none;
-            color: #64748b;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .history-clear:hover {
-            color: #ef4444;
-        }
-
-        .history-list {
-            max-height: 100px;
-            overflow-y: auto;
-        }
-
-        .history-item {
-            padding: 8px 12px;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.08);
-            cursor: pointer;
-            transition: background 0.2s;
-            font-size: 11px;
-            color: #e2e8f0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .history-item:hover {
-            background: rgba(99, 102, 241, 0.1);
-        }
-
-        .history-item:last-child {
-            border-bottom: none;
-        }
-
-        .history-empty {
-            padding: 12px;
+        .unit-detect-msg {
             text-align: center;
-            color: #64748b;
-            font-size: 11px;
-            font-style: italic;
+            color: #80868b;
+            font-size: 12px;
+            padding: 8px;
         }
 
         /* ==========================================
-           STATUS & UTILITIES
+           QUICK SWAP (Minimal)
+           ========================================== */
+        .swap-section {
+            padding: 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .swap-title {
+            font-size: 12px;
+            font-weight: 500;
+            color: #5f6368;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .swap-textarea {
+            width: 100%;
+            height: 50px;
+            padding: 10px 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 13px;
+            color: #202124;
+            resize: none;
+            margin-bottom: 10px;
+        }
+
+        .swap-textarea:focus {
+            outline: none;
+            border-color: #6200ee;
+        }
+
+        .swap-textarea::placeholder {
+            color: #9aa0a6;
+        }
+
+        .swap-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .swap-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            background: #fff;
+            color: #5f6368;
+        }
+
+        .swap-btn:hover {
+            background: #f1f3f4;
+        }
+
+        .swap-btn.primary {
+            background: #6200ee;
+            border-color: #6200ee;
+            color: white;
+        }
+
+        .swap-btn.primary:hover {
+            background: #5000d4;
+        }
+
+        /* ==========================================
+           STATUS
            ========================================== */
         .status {
             text-align: center;
-            font-size: 11px;
-            color: #64748b;
-            padding: 8px;
-            min-height: 30px;
+            font-size: 12px;
+            color: #5f6368;
+            padding: 8px 16px;
+            min-height: 32px;
         }
 
         .status.success {
-            color: #22c55e;
+            color: #137333;
         }
 
         .status.error {
-            color: #ef4444;
+            color: #c5221f;
         }
 
         .loading {
-            opacity: 0.7;
+            opacity: 0.6;
             pointer-events: none;
         }
 
         /* Scrollbar */
         ::-webkit-scrollbar {
-            width: 4px;
+            width: 6px;
         }
 
         ::-webkit-scrollbar-track {
@@ -824,12 +653,12 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: rgba(99, 102, 241, 0.3);
-            border-radius: 2px;
+            background: #dadce0;
+            border-radius: 3px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(99, 102, 241, 0.5);
+            background: #bdc1c6;
         }
     </style>
 </head>
@@ -837,130 +666,111 @@
 <body>
     <!-- Header -->
     <div class="header">
-        <div class="logo">↔️</div>
-        <h1>SmartSwap</h1>
-        <div class="tagline">Premium clipboard for Google Docs</div>
+        <div class="header-left">
+            <span class="header-logo">↔️</span>
+            <span class="header-title">SmartSwap</span>
+        </div>
+        <div class="header-actions">
+            <button class="header-btn" onclick="loadClips()" title="Refresh">🔄</button>
+        </div>
     </div>
 
-    <!-- Primary Buffer (Hero Zone) -->
-    <div class="primary-buffer">
-        <div class="buffer-header">
-            <div class="buffer-title">
-                <span>📋</span> Active Buffer
+    <!-- Contextual Action Section -->
+    <div class="context-section">
+        <div class="context-label">
+            <span>📝</span> Current Selection
+        </div>
+        <div class="context-selection empty" id="currentSelection">
+            Select text in your document
+        </div>
+
+        <button class="context-primary-btn" id="swapBtn" onclick="swapWithLast()" disabled>
+            ↔️ Swap with Last Copied
+        </button>
+
+        <div class="suggested-label" id="suggestedLabel" style="display: none;">Suggested Actions</div>
+        <div class="suggested-chips" id="suggestedChips">
+            <div class="chip hidden" id="convertChip" onclick="quickConvert()">
+                <span class="chip-icon">🔄</span>
+                <span id="convertChipText">Convert</span>
             </div>
-            <div class="buffer-source" id="bufferSource">Empty</div>
-        </div>
-
-        <div class="buffer-preview" id="bufferPreview">
-            <div class="buffer-empty">Select text and click Capture to load the buffer</div>
-        </div>
-
-        <div class="buffer-meta" id="bufferMeta" style="display: none;">
-            <div class="meta-badge" id="formatBadge">
-                <span>📝</span> Plain text
-            </div>
-            <div class="meta-badge" id="charCount">
-                0 chars
+            <div class="chip hidden" id="findChip" onclick="openFindReplace()">
+                <span class="chip-icon">🔍</span>
+                <span id="findChipText">Find & Replace</span>
             </div>
         </div>
-
-        <div class="buffer-actions">
-            <button class="buffer-btn buffer-btn-capture" onclick="captureToBuffer()">
-                <span>📥</span> Capture
-            </button>
-            <button class="buffer-btn buffer-btn-pour" id="pourBtn" onclick="pourFromBuffer()" disabled>
-                <span>📤</span> Pour
-            </button>
-        </div>
     </div>
 
-    <!-- The Stack (Slot Pills) -->
-    <div class="the-stack">
-        <div class="stack-header">
-            <div class="stack-title">The Stack</div>
-            <button class="stack-clear-all" onclick="clearAllSlots()">Clear All</button>
-        </div>
-        <div class="stack-pills" id="stackPills">
-            <!-- Pills rendered by JS -->
-        </div>
-    </div>
-
-    <!-- Quick Actions (Contextual) -->
-    <div class="quick-actions hidden" id="quickActions">
-        <div class="actions-header">
-            <span>⚡</span> Quick Actions
-        </div>
-        <div id="actionCards">
-            <!-- Action cards rendered by JS -->
-        </div>
-    </div>
-
-    <!-- Quick Exchange -->
-    <div class="quick-exchange">
-        <div class="exchange-header">Quick Exchange</div>
-        <textarea class="exchange-textarea" id="exchangeText" placeholder="Paste or type text here..."></textarea>
-        <div class="exchange-actions">
-            <button class="exchange-btn exchange-btn-copy" onclick="copySelection()">
-                📋 Copy Selection
-            </button>
-            <button class="exchange-btn exchange-btn-swap" onclick="doExchangePaste()">
-                ↔️ Exchange
+    <!-- Your Clips Section -->
+    <div class="clips-section">
+        <div class="clips-header">
+            <div class="clips-title">
+                <span>📋</span> Your Clips
+            </div>
+            <button class="clips-add-btn" onclick="saveToClips()">
+                <span>+</span> Save Selection
             </button>
         </div>
+
+        <div class="clips-list" id="clipsList">
+            <div class="clips-empty">
+                <div class="clips-empty-icon">📋</div>
+                <div>No clips yet</div>
+                <div style="font-size: 12px; margin-top: 4px;">Select text and click "Save Selection"</div>
+            </div>
+        </div>
     </div>
 
-    <!-- Smart Tools (Collapsible) -->
-    <div class="smart-tools" id="smartTools">
-        <div class="tools-header" onclick="toggleSmartTools()">
-            <div class="tools-title">
-                <span>🧠</span> Smart Tools
-            </div>
-            <button class="tools-toggle">▼</button>
+    <!-- Quick Swap -->
+    <div class="swap-section">
+        <div class="swap-title">Quick Swap</div>
+        <textarea class="swap-textarea" id="swapText" placeholder="Type or paste text to swap..."></textarea>
+        <div class="swap-actions">
+            <button class="swap-btn" onclick="copySelection()">📋 Copy Selection</button>
+            <button class="swap-btn primary" onclick="doSwap()">↔️ Swap</button>
         </div>
+    </div>
 
-        <div class="tools-content">
-            <!-- Variable Renamer -->
-            <div class="tool-section">
-                <div class="tool-section-title">Variable Renamer</div>
+    <!-- Smart Tools (Accordions) -->
+    <div class="tools-section">
+        <div class="tool-accordion" id="renamerAccordion">
+            <div class="tool-header" onclick="toggleAccordion('renamerAccordion')">
+                <div class="tool-header-left">
+                    <span class="tool-icon">✏️</span>
+                    <span class="tool-title">Variable Renamer</span>
+                </div>
+                <span class="tool-toggle">▼</span>
+            </div>
+            <div class="tool-body">
                 <div class="tool-row">
                     <input type="text" class="tool-input" id="findText" placeholder="Find..." />
                     <span class="tool-arrow">→</span>
-                    <input type="text" class="tool-input" id="replaceText" placeholder="Replace..." />
+                    <input type="text" class="tool-input" id="replaceText" placeholder="Replace with..." />
                 </div>
                 <div class="tool-row">
-                    <button class="tool-btn tool-btn-secondary" onclick="previewFind()">
-                        🔍 Preview
-                    </button>
-                    <button class="tool-btn tool-btn-primary" id="replaceBtn" onclick="doReplace()" disabled>
-                        ✓ Replace
-                    </button>
+                    <button class="tool-btn" onclick="previewFind()">Preview</button>
+                    <button class="tool-btn primary" id="replaceBtn" onclick="doReplace()" disabled>Replace All</button>
                 </div>
                 <div id="findResult" class="tool-result" style="display: none;"></div>
             </div>
+        </div>
 
-            <!-- Unit Converter -->
-            <div class="tool-section">
-                <div class="tool-section-title">Unit Converter</div>
+        <div class="tool-accordion" id="converterAccordion">
+            <div class="tool-header" onclick="toggleAccordion('converterAccordion')">
+                <div class="tool-header-left">
+                    <span class="tool-icon">🔄</span>
+                    <span class="tool-title">Unit Converter</span>
+                </div>
+                <span class="tool-toggle">▼</span>
+            </div>
+            <div class="tool-body">
                 <div id="unitArea">
-                    <div class="unit-detect-area">Select a value and click Detect</div>
+                    <div class="unit-detect-msg">Select a value (e.g., "50 kg") and click Detect</div>
                 </div>
                 <div class="tool-row">
-                    <button class="tool-btn tool-btn-secondary" onclick="detectUnit()" style="flex: 1;">
-                        🔎 Detect Unit
-                    </button>
+                    <button class="tool-btn" onclick="detectUnit()" style="flex: 1;">🔎 Detect Unit</button>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- History -->
-    <div class="history-section">
-        <div class="history-header">
-            <div class="history-title">History</div>
-            <button class="history-clear" onclick="clearHistory()">×</button>
-        </div>
-        <div class="history-list" id="historyList">
-            <div class="history-empty">No history yet</div>
         </div>
     </div>
 
@@ -970,17 +780,19 @@
         // ============================================
         // STATE
         // ============================================
-        let slots = [];
-        let activeSlotIndex = 0;
+        let clips = [];
+        let lastCopied = '';
         let currentConversion = null;
+        let currentSelectionText = '';
 
         // ============================================
         // INITIALIZATION
         // ============================================
         document.addEventListener('DOMContentLoaded', function () {
-            loadSlots();
-            loadHistory();
-            autoDetectOnLoad();
+            loadClips();
+            refreshSelection();
+            // Auto-refresh selection periodically
+            setInterval(refreshSelection, 2000);
         });
 
         function showStatus(message, type) {
@@ -995,73 +807,89 @@
         }
 
         // ============================================
-        // PRIMARY BUFFER
+        // CONTEXTUAL ACTIONS
         // ============================================
-        function updateBufferDisplay() {
-            const slot = slots[activeSlotIndex];
-            const preview = document.getElementById('bufferPreview');
-            const source = document.getElementById('bufferSource');
-            const meta = document.getElementById('bufferMeta');
-            const formatBadge = document.getElementById('formatBadge');
-            const charCount = document.getElementById('charCount');
-            const pourBtn = document.getElementById('pourBtn');
-
-            if (slot && slot.text && slot.text.length > 0) {
-                preview.innerHTML = '<div class="buffer-text">' + escapeHtml(slot.text) + '</div>';
-                source.textContent = 'Slot ' + (activeSlotIndex + 1);
-                meta.style.display = 'flex';
-
-                if (slot.hasFormatting) {
-                    formatBadge.className = 'meta-badge styled';
-                    formatBadge.innerHTML = '<span>✨</span> Styled';
-                } else {
-                    formatBadge.className = 'meta-badge plain';
-                    formatBadge.innerHTML = '<span>📝</span> Plain';
-                }
-
-                charCount.textContent = slot.text.length + ' chars';
-                pourBtn.disabled = false;
-            } else {
-                preview.innerHTML = '<div class="buffer-empty">Select text and click Capture to load the buffer</div>';
-                source.textContent = 'Empty';
-                meta.style.display = 'none';
-                pourBtn.disabled = true;
-            }
-        }
-
-        function captureToBuffer() {
-            setLoading(true);
+        function refreshSelection() {
             google.script.run
                 .withSuccessHandler(function (result) {
-                    setLoading(false);
-                    if (result.success) {
-                        slots[activeSlotIndex] = {
-                            text: result.text,
-                            hasFormatting: result.hasFormatting || false,
-                            label: 'Slot ' + (activeSlotIndex + 1),
-                            timestamp: new Date().toISOString()
-                        };
-                        updateBufferDisplay();
-                        renderStackPills();
-                        showStatus('Captured to Slot ' + (activeSlotIndex + 1), 'success');
+                    const selDiv = document.getElementById('currentSelection');
+                    const swapBtn = document.getElementById('swapBtn');
 
-                        // Auto-detect for quick actions
-                        autoDetectQuickActions();
+                    if (result.success && result.hasSelection && result.text) {
+                        currentSelectionText = result.text;
+                        const preview = result.text.length > 80
+                            ? result.text.substring(0, 77) + '...'
+                            : result.text;
+                        selDiv.textContent = '"' + preview + '"';
+                        selDiv.classList.remove('empty');
+                        swapBtn.disabled = !lastCopied;
+
+                        // Auto-detect for suggestions
+                        autoDetectSuggestions(result.text);
                     } else {
-                        showStatus(result.error, 'error');
+                        currentSelectionText = '';
+                        selDiv.textContent = 'Select text in your document';
+                        selDiv.classList.add('empty');
+                        swapBtn.disabled = true;
+                        hideSuggestions();
                     }
                 })
-                .withFailureHandler(function (error) {
-                    setLoading(false);
-                    showStatus('Error: ' + error.message, 'error');
+                .withFailureHandler(function () {
+                    // Silently fail on refresh
                 })
-                .collectToSlot(activeSlotIndex);
+                .getSelectedText();
         }
 
-        function pourFromBuffer() {
-            const slot = slots[activeSlotIndex];
-            if (!slot || !slot.text) {
-                showStatus('Buffer is empty', 'error');
+        function autoDetectSuggestions(text) {
+            // Check for unit conversion
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    const convertChip = document.getElementById('convertChip');
+                    const findChip = document.getElementById('findChip');
+                    const label = document.getElementById('suggestedLabel');
+
+                    let hasSuggestions = false;
+
+                    if (result.success && result.canConvert) {
+                        currentConversion = result;
+                        const conv = result.conversions[0];
+                        document.getElementById('convertChipText').textContent =
+                            'Convert to ' + conv.formatted;
+                        convertChip.classList.remove('hidden');
+                        hasSuggestions = true;
+
+                        // Auto-expand converter
+                        document.getElementById('converterAccordion').classList.add('open');
+                        updateUnitArea(result);
+                    } else {
+                        convertChip.classList.add('hidden');
+                        currentConversion = null;
+                    }
+
+                    // Always show find chip if text is selected
+                    if (text && text.length > 0 && text.length < 50) {
+                        document.getElementById('findChipText').textContent =
+                            'Find "' + (text.length > 20 ? text.substring(0, 17) + '...' : text) + '"';
+                        findChip.classList.remove('hidden');
+                        hasSuggestions = true;
+                    } else {
+                        findChip.classList.add('hidden');
+                    }
+
+                    label.style.display = hasSuggestions ? 'block' : 'none';
+                })
+                .detectAndParseUnit();
+        }
+
+        function hideSuggestions() {
+            document.getElementById('convertChip').classList.add('hidden');
+            document.getElementById('findChip').classList.add('hidden');
+            document.getElementById('suggestedLabel').style.display = 'none';
+        }
+
+        function swapWithLast() {
+            if (!lastCopied || !currentSelectionText) {
+                showStatus('Nothing to swap', 'error');
                 return;
             }
 
@@ -1070,7 +898,9 @@
                 .withSuccessHandler(function (result) {
                     setLoading(false);
                     if (result.success) {
-                        showStatus(result.message, 'success');
+                        lastCopied = result.capturedText;
+                        showStatus('Swapped!', 'success');
+                        refreshSelection();
                     } else {
                         showStatus(result.error, 'error');
                     }
@@ -1079,139 +909,25 @@
                     setLoading(false);
                     showStatus('Error: ' + error.message, 'error');
                 })
-                .pasteFromSlot(activeSlotIndex);
+                .exchangePaste(lastCopied);
         }
 
-        // ============================================
-        // THE STACK (Slot Pills)
-        // ============================================
-        function loadSlots() {
-            google.script.run
-                .withSuccessHandler(function (result) {
-                    slots = result;
-                    renderStackPills();
-                    updateBufferDisplay();
-                })
-                .withFailureHandler(function (error) {
-                    showStatus('Error loading slots', 'error');
-                })
-                .getSlots();
-        }
-
-        function renderStackPills() {
-            const container = document.getElementById('stackPills');
-            container.innerHTML = slots.map(function (slot, i) {
-                const isFilled = slot.text && slot.text.length > 0;
-                const isActive = i === activeSlotIndex;
-                const tooltip = isFilled ? slot.text.substring(0, 50) + (slot.text.length > 50 ? '...' : '') : '';
-
-                let classes = 'stack-pill';
-                if (isActive) classes += ' active';
-                if (!isFilled) classes += ' empty';
-
-                return `
-                    <div class="${classes}" onclick="selectSlot(${i})" ${tooltip ? 'data-tooltip="' + escapeHtml(tooltip) + '"' : ''}>
-                        <div class="pill-number">${i + 1}</div>
-                        ${isFilled ? (slot.hasFormatting ? '<span class="pill-styled">✨</span>' : '') : ''}
-                        ${isFilled ? '<button class="pill-clear" onclick="event.stopPropagation(); clearSlot(' + i + ')">×</button>' : ''}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function selectSlot(index) {
-            activeSlotIndex = index;
-            renderStackPills();
-            updateBufferDisplay();
-        }
-
-        function clearSlot(index) {
-            google.script.run
-                .withSuccessHandler(function () {
-                    slots[index] = { text: '', label: 'Slot ' + (index + 1), hasFormatting: false };
-                    renderStackPills();
-                    if (index === activeSlotIndex) {
-                        updateBufferDisplay();
-                    }
-                    showStatus('Slot ' + (index + 1) + ' cleared', 'success');
-                })
-                .clearSlot(index);
-        }
-
-        function clearAllSlots() {
-            if (!confirm('Clear all slots?')) return;
-            google.script.run
-                .withSuccessHandler(function () {
-                    loadSlots();
-                    showStatus('All slots cleared', 'success');
-                })
-                .clearAllSlots();
-        }
-
-        // ============================================
-        // QUICK ACTIONS (Auto-Detection)
-        // ============================================
-        function autoDetectOnLoad() {
-            // Auto-detect unit on sidebar open
-            google.script.run
-                .withSuccessHandler(function (result) {
-                    if (result.success && result.canConvert) {
-                        showQuickAction('unit', result);
-                    }
-                })
-                .detectAndParseUnit();
-        }
-
-        function autoDetectQuickActions() {
-            // Run unit detection
-            google.script.run
-                .withSuccessHandler(function (result) {
-                    if (result.success && result.canConvert) {
-                        showQuickAction('unit', result);
-                    } else {
-                        hideQuickAction('unit');
-                    }
-                })
-                .detectAndParseUnit();
-        }
-
-        function showQuickAction(type, data) {
-            const container = document.getElementById('quickActions');
-            const cards = document.getElementById('actionCards');
-
-            container.classList.remove('hidden');
-
-            if (type === 'unit') {
-                currentConversion = data;
-                const conv = data.conversions[0];
-                cards.innerHTML = `
-                    <div class="action-card unit-action">
-                        <div class="action-info">
-                            <span class="action-icon">🔄</span>
-                            <div>
-                                <div class="action-text">${escapeHtml(data.originalText)} → ${conv.formatted}</div>
-                                <div class="action-subtext">${data.unitType} conversion</div>
-                            </div>
-                        </div>
-                        <button class="action-btn" onclick="quickConvert('${conv.toUnit}')">Convert</button>
-                    </div>
-                `;
+        function quickConvert() {
+            if (!currentConversion || !currentConversion.conversions.length) {
+                showStatus('No conversion available', 'error');
+                return;
             }
-        }
 
-        function hideQuickAction(type) {
-            const container = document.getElementById('quickActions');
-            container.classList.add('hidden');
-        }
+            const toUnit = currentConversion.conversions[0].toUnit;
 
-        function quickConvert(toUnit) {
             setLoading(true);
             google.script.run
                 .withSuccessHandler(function (result) {
                     setLoading(false);
                     if (result.success) {
                         showStatus(result.message, 'success');
-                        hideQuickAction('unit');
+                        refreshSelection();
+                        hideSuggestions();
                     } else {
                         showStatus(result.error, 'error');
                     }
@@ -1223,8 +939,136 @@
                 .convertSelectedUnit(toUnit);
         }
 
+        function openFindReplace() {
+            document.getElementById('renamerAccordion').classList.add('open');
+            document.getElementById('findText').value = currentSelectionText;
+            document.getElementById('findText').focus();
+        }
+
         // ============================================
-        // QUICK EXCHANGE
+        // YOUR CLIPS
+        // ============================================
+        function loadClips() {
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    clips = result.filter(s => s.text && s.text.length > 0);
+                    renderClips();
+                })
+                .withFailureHandler(function (error) {
+                    showStatus('Error loading clips', 'error');
+                })
+                .getSlots();
+        }
+
+        function renderClips() {
+            const container = document.getElementById('clipsList');
+
+            if (clips.length === 0) {
+                container.innerHTML = `
+                    <div class="clips-empty">
+                        <div class="clips-empty-icon">📋</div>
+                        <div>No clips yet</div>
+                        <div style="font-size: 12px; margin-top: 4px;">Select text and click "Save Selection"</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = clips.map(function (clip, i) {
+                const preview = clip.text.length > 100
+                    ? clip.text.substring(0, 97) + '...'
+                    : clip.text;
+
+                return `
+                    <div class="clip-item">
+                        <div class="clip-meta">
+                            ${clip.hasFormatting
+                        ? '<span class="clip-badge styled">✨ Styled</span>'
+                        : '<span class="clip-badge">Plain text</span>'}
+                            <span>${clip.text.length} chars</span>
+                        </div>
+                        <div class="clip-content" onclick="insertClip(${clip.index})" title="${escapeHtml(clip.text)}">
+                            ${escapeHtml(preview)}
+                        </div>
+                        <div class="clip-actions">
+                            <button class="clip-btn primary" onclick="insertClip(${clip.index})">Insert</button>
+                            <button class="clip-btn" onclick="copyClipToSwap(${clip.index})">Copy</button>
+                            <button class="clip-btn" onclick="clearClip(${clip.index})">×</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function saveToClips() {
+            // Find first empty slot
+            let targetIndex = 0;
+            for (let i = 0; i < 5; i++) {
+                const slot = clips.find(c => c.index === i);
+                if (!slot || !slot.text) {
+                    targetIndex = i;
+                    break;
+                }
+                targetIndex = i;
+            }
+
+            setLoading(true);
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    setLoading(false);
+                    if (result.success) {
+                        loadClips();
+                        showStatus('Saved to clips', 'success');
+                    } else {
+                        showStatus(result.error, 'error');
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    showStatus('Error: ' + error.message, 'error');
+                })
+                .collectToSlot(targetIndex);
+        }
+
+        function insertClip(index) {
+            setLoading(true);
+            google.script.run
+                .withSuccessHandler(function (result) {
+                    setLoading(false);
+                    if (result.success) {
+                        showStatus('Inserted', 'success');
+                    } else {
+                        showStatus(result.error, 'error');
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    showStatus('Error: ' + error.message, 'error');
+                })
+                .pasteFromSlot(index);
+        }
+
+        function copyClipToSwap(index) {
+            const clip = clips.find(c => c.index === index);
+            if (clip) {
+                document.getElementById('swapText').value = clip.text;
+                lastCopied = clip.text;
+                document.getElementById('swapBtn').disabled = !currentSelectionText;
+                showStatus('Copied to swap area', 'success');
+            }
+        }
+
+        function clearClip(index) {
+            google.script.run
+                .withSuccessHandler(function () {
+                    loadClips();
+                    showStatus('Clip removed', 'success');
+                })
+                .clearSlot(index);
+        }
+
+        // ============================================
+        // QUICK SWAP
         // ============================================
         function copySelection() {
             setLoading(true);
@@ -1232,8 +1076,10 @@
                 .withSuccessHandler(function (result) {
                     setLoading(false);
                     if (result.success && result.hasSelection) {
-                        document.getElementById('exchangeText').value = result.text;
-                        showStatus('Selection copied', 'success');
+                        document.getElementById('swapText').value = result.text;
+                        lastCopied = result.text;
+                        document.getElementById('swapBtn').disabled = false;
+                        showStatus('Copied', 'success');
                     } else {
                         showStatus(result.error || 'No text selected', 'error');
                     }
@@ -1245,10 +1091,10 @@
                 .getSelectedText();
         }
 
-        function doExchangePaste() {
-            const newText = document.getElementById('exchangeText').value.trim();
+        function doSwap() {
+            const newText = document.getElementById('swapText').value.trim();
             if (!newText) {
-                showStatus('Enter text first', 'error');
+                showStatus('Enter text to swap', 'error');
                 return;
             }
 
@@ -1257,10 +1103,10 @@
                 .withSuccessHandler(function (result) {
                     setLoading(false);
                     if (result.success) {
-                        document.getElementById('exchangeText').value = result.capturedText;
-                        showStatus('Exchange complete!', 'success');
-                        google.script.run.addToHistory(result.capturedText);
-                        loadHistory();
+                        document.getElementById('swapText').value = result.capturedText;
+                        lastCopied = result.capturedText;
+                        showStatus('Swapped!', 'success');
+                        refreshSelection();
                     } else {
                         showStatus(result.error, 'error');
                     }
@@ -1275,8 +1121,8 @@
         // ============================================
         // SMART TOOLS
         // ============================================
-        function toggleSmartTools() {
-            document.getElementById('smartTools').classList.toggle('collapsed');
+        function toggleAccordion(id) {
+            document.getElementById(id).classList.toggle('open');
         }
 
         function previewFind() {
@@ -1299,7 +1145,7 @@
 
                     if (result.success && result.count > 0) {
                         resultDiv.className = 'tool-result success';
-                        resultDiv.textContent = `Found ${result.count} match${result.count !== 1 ? 'es' : ''}`;
+                        resultDiv.textContent = 'Found ' + result.count + ' match' + (result.count !== 1 ? 'es' : '') + ' in selection';
                         replaceBtn.disabled = false;
                     } else {
                         resultDiv.className = 'tool-result';
@@ -1356,36 +1202,40 @@
             google.script.run
                 .withSuccessHandler(function (result) {
                     setLoading(false);
-
-                    if (result.success && result.canConvert) {
-                        let html = '<div class="unit-preview">' +
-                            '<span class="unit-from">' + escapeHtml(result.originalText) + '</span>' +
-                            '<span class="unit-arrow">→</span>' +
-                            '<span class="unit-to">' + result.conversions[0].formatted + '</span>' +
-                            '</div>';
-
-                        html += '<div class="unit-buttons">';
-                        result.conversions.forEach(function (conv) {
-                            html += '<button class="unit-btn" onclick="convertTo(\'' + conv.toUnit + '\')">→ ' + conv.formatted + '</button>';
-                        });
-                        html += '</div>';
-
-                        unitArea.innerHTML = html;
-                        showStatus('Unit detected: ' + result.unitType, 'success');
-
-                        // Also show in quick actions
-                        showQuickAction('unit', result);
-                    } else {
-                        unitArea.innerHTML = '<div class="unit-detect-area">' + (result.hint || result.error || 'No unit detected') + '</div>';
-                        if (result.error) showStatus(result.error, 'error');
-                    }
+                    updateUnitArea(result);
                 })
                 .withFailureHandler(function (error) {
                     setLoading(false);
-                    unitArea.innerHTML = '<div class="unit-detect-area">Error detecting unit</div>';
+                    unitArea.innerHTML = '<div class="unit-detect-msg">Error detecting unit</div>';
                     showStatus('Error: ' + error.message, 'error');
                 })
                 .detectAndParseUnit();
+        }
+
+        function updateUnitArea(result) {
+            const unitArea = document.getElementById('unitArea');
+
+            if (result.success && result.canConvert) {
+                currentConversion = result;
+
+                let html = '<div class="unit-preview">' +
+                    '<span class="unit-from">' + escapeHtml(result.originalText) + '</span>' +
+                    '<span class="unit-arrow">→</span>' +
+                    '<span class="unit-to">' + result.conversions[0].formatted + '</span>' +
+                    '</div>';
+
+                html += '<div class="unit-buttons">';
+                result.conversions.forEach(function (conv) {
+                    html += '<button class="unit-btn" onclick="convertTo(\'' + conv.toUnit + '\')">→ ' + conv.formatted + '</button>';
+                });
+                html += '</div>';
+
+                unitArea.innerHTML = html;
+                showStatus('Unit detected', 'success');
+            } else {
+                unitArea.innerHTML = '<div class="unit-detect-msg">' +
+                    (result.hint || result.error || 'No unit detected') + '</div>';
+            }
         }
 
         function convertTo(toUnit) {
@@ -1398,7 +1248,8 @@
                     if (result.success) {
                         unitArea.innerHTML = '<div class="tool-result success">' + result.message + '</div>';
                         showStatus(result.message, 'success');
-                        hideQuickAction('unit');
+                        refreshSelection();
+                        hideSuggestions();
                     } else {
                         showStatus(result.error, 'error');
                     }
@@ -1411,48 +1262,13 @@
         }
 
         // ============================================
-        // HISTORY
-        // ============================================
-        function loadHistory() {
-            google.script.run
-                .withSuccessHandler(function (history) {
-                    const list = document.getElementById('historyList');
-
-                    if (!history || history.length === 0) {
-                        list.innerHTML = '<div class="history-empty">No history yet</div>';
-                        return;
-                    }
-
-                    list.innerHTML = history.map(function (item) {
-                        const preview = item.length > 40 ? item.substring(0, 37) + '...' : item;
-                        return '<div class="history-item" onclick="useHistoryItem(\'' + escapeHtml(item) + '\')">' + escapeHtml(preview) + '</div>';
-                    }).join('');
-                })
-                .getHistory();
-        }
-
-        function useHistoryItem(text) {
-            document.getElementById('exchangeText').value = text;
-            showStatus('Loaded from history', 'success');
-        }
-
-        function clearHistory() {
-            google.script.run
-                .withSuccessHandler(function () {
-                    loadHistory();
-                    showStatus('History cleared', 'success');
-                })
-                .clearHistory();
-        }
-
-        // ============================================
         // UTILITIES
         // ============================================
         function escapeHtml(text) {
             if (!text) return '';
             const div = document.createElement('div');
             div.textContent = text;
-            return div.innerHTML.replace(/'/g, "\\'").replace(/"/g, '\\"');
+            return div.innerHTML;
         }
     </script>
 </body>
